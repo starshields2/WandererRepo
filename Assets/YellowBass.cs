@@ -5,6 +5,7 @@ using UnityEngine.XR.ARSubsystems;
 
 public class YellowBass : MonoBehaviour
 {
+    public float speed;
     [Header("Transforms")]
     public Transform[] swimSpots;
     public Transform runSpot;
@@ -18,6 +19,10 @@ public class YellowBass : MonoBehaviour
     public float hideDist = 6f;
     public float curDist = 0f;
 
+    [Header("Social Interaction")]
+    public GameObject[] friendWith;
+    public GameObject[] avoiding;
+    public GameObject[] chasing;
     //fish state enums
     public FishState currentState = FishState.RegularSwim;
 
@@ -48,7 +53,7 @@ public class YellowBass : MonoBehaviour
                 StartSwimming(1f);
                     break;
                 case FishState.Run:
-                StopCoroutine(Swim(1f));
+                StopCoroutine(Swim());
                 StartCoroutine(RunSequence());
                     break;
                 case FishState.Hide:
@@ -78,6 +83,7 @@ public class YellowBass : MonoBehaviour
         {
         StartCoroutine(RunSequence());
         }
+
     public IEnumerator RunSequence()
     {
         if (Vector3.Distance(transform.position, hideSpot.position) > 0.1f)
@@ -122,35 +128,34 @@ public class YellowBass : MonoBehaviour
     public void StartSwimming(float dTime)
     {
         // Start the swim coroutine
-        StartCoroutine(Swim(dTime));
+        StartCoroutine(Swim());
     }
 
-    public IEnumerator Swim(float dTime)
+    public IEnumerator Swim()
     {
         while (true) // Continue swimming indefinitely
         {
             // Move to the current swim spot
-            yield return StartCoroutine(MoveToSwimSpot(swimSpots[currentIndex], dTime));
+            yield return StartCoroutine(MoveToSwimSpot(swimSpots[currentIndex], speed));
 
-            // Move to the next swim spot index
-            currentIndex = (currentIndex + 1) % Random.Range(1, swimSpots.Length);
+            
 
             // Add a delay before moving to the next swim spot
-            yield return new WaitForSeconds(dTime);
+            yield return new WaitForSeconds(1f);
         }
     }
 
-
-    private IEnumerator MoveToSwimSpot(Transform spot, float delayTime)
+    private IEnumerator MoveToSwimSpot(Transform spot, float speed)
     {
         transform.LookAt(spot);
-        float speed = 0.0005f;
-        
+
         while (Vector3.Distance(transform.position, spot.position) > 0.1f)
         {
             transform.position = Vector3.MoveTowards(transform.position, spot.position, speed * Time.deltaTime);
             yield return null;
         }
+            // Move to the next swim spot index (randomly)
+            currentIndex = Random.Range(0, swimSpots.Length);
     }
 
 }
