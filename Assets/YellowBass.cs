@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARSubsystems;
+using TasiYokan.Curve;
 
 public class YellowBass : MonoBehaviour
 {
+    [Header("Bezi Controller")]
+    public BezierPathMover beziMover;
+
+
     public float speed;
     [Header("Transforms")]
     public Transform[] swimSpots;
@@ -81,6 +86,7 @@ public class YellowBass : MonoBehaviour
 
         public void Run()
         {
+        beziMover.StopMove();
         StartCoroutine(RunSequence());
         }
 
@@ -135,27 +141,8 @@ public class YellowBass : MonoBehaviour
     {
         while (true) // Continue swimming indefinitely
         {
-            // Move to the current swim spot
-            yield return StartCoroutine(MoveToSwimSpot(swimSpots[currentIndex], speed));
-
-            
-
-            // Add a delay before moving to the next swim spot
-            yield return new WaitForSeconds(1f);
+            beziMover.StartMove();
         }
-    }
-
-    private IEnumerator MoveToSwimSpot(Transform spot, float speed)
-    {
-        transform.LookAt(spot);
-
-        while (Vector3.Distance(transform.position, spot.position) > 0.1f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, spot.position, speed * Time.deltaTime);
-            yield return null;
-        }
-            // Move to the next swim spot index (randomly)
-            currentIndex = Random.Range(0, swimSpots.Length);
     }
 
 }
