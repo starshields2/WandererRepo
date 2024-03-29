@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6620,18 +6620,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1433003103}
   m_Mesh: {fileID: 1044474786482081957, guid: ad59090eb3bd1d84e98dc0afb4d4008a, type: 3}
---- !u!114 &655114636 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1261582841855340661, guid: e0c2e6f98889b9144afcc2e0c22bbc02,
-    type: 3}
-  m_PrefabInstance: {fileID: 1261582842275541491}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525902520}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1de4e6ed562b094ea4218324e4b3569, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &680011904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7414,7 +7402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &867884517
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9084,6 +9072,8 @@ MonoBehaviour:
   - {fileID: 1247329893}
   _objectToMove: {fileID: 1485781596}
   _movementSpeed: 1
+  hideSpot: {fileID: 394954716}
+  currentState: 1
 --- !u!120 &1485781602
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -15298,6 +15288,8 @@ MonoBehaviour:
   - {fileID: 923224348}
   _objectToMove: {fileID: 1868361235}
   _movementSpeed: 0.75
+  hideSpot: {fileID: 394954716}
+  currentState: 1
 --- !u!120 &1868361241
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -15781,18 +15773,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1967349187 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1261582841855340661, guid: e0c2e6f98889b9144afcc2e0c22bbc02,
-    type: 3}
-  m_PrefabInstance: {fileID: 318316678}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 360934864}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1de4e6ed562b094ea4218324e4b3569, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1967349191 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1261582841855340665, guid: e0c2e6f98889b9144afcc2e0c22bbc02,
@@ -15825,6 +15805,8 @@ MonoBehaviour:
   - {fileID: 1880569137}
   _objectToMove: {fileID: 1967349191}
   _movementSpeed: 1.2
+  hideSpot: {fileID: 394954716}
+  currentState: 1
 --- !u!120 &1967349196
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -16958,8 +16940,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arFace: {fileID: 388525036}
   yBass:
-  - {fileID: 1967349187}
-  - {fileID: 655114636}
+  - {fileID: 1967349192}
+  - {fileID: 1868361236}
+  - {fileID: 1485781597}
 --- !u!4 &7249584483127116689
 Transform:
   m_ObjectHideFlags: 0
