@@ -1,14 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.Networking;
+using TMPro;
 
 public class EnvironmentManager : MonoBehaviour
 {
     string apiKey = "0ffb08cb572db172c4a77e34ca5d5c25"; // Replace with your OpenWeatherMap API key
-    string url = "https://api.openweathermap.org/data/2.5/weather?q=Dallas&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=metric"; // Base URL
+    string url = "https://api.openweathermap.org/data/2.5/weather?q=Dallas&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
 
     [Header("Weather")]
+    public string weatherReport;
+    public TextMeshProUGUI tempToString;
     public bool isRainy;
     public bool isDrought;
     public bool isSunny;
@@ -76,18 +79,41 @@ public class EnvironmentManager : MonoBehaviour
     IEnumerator ShowandLoadWeatherData()
     {
         // Create URL with latitude, longitude, and API key
-        string requestUrl = url + "?lat=" + latitude + "&lon=" + longitude + "&exclude=hourly,daily&appid=" + apiKey;
+        string requestUrl = url + "&lat=" + latitude + "&lon=" + longitude + "&units=imperial" + "&exclude=hourly,daily&appid=" + apiKey;
 
         UnityWebRequest www = UnityWebRequest.Get(requestUrl);
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
         {
-            Debug.LogError(www.error);
+            Debug.LogError("Error fetching weather data: " + www.error);
         }
         else
         {
-            Debug.Log(www.downloadHandler.text);
+            // Parse JSON response
+            string jsonResponse = www.downloadHandler.text;
+            WeatherData weatherData = JsonUtility.FromJson<WeatherData>(jsonResponse);
+
+            // Access temperature and rain from current weather data
+            float temperature = weatherData.main.temp;
+            float rain = weatherData.main.rain.oneHour; // Assuming rain data is provided in the JSON response
+
+            Debug.Log("Current temperature: " + temperature + "°F");
+            Debug.Log("Current rain: " + rain);
+
+            // Display temperature
+            weatherReport = "Temp: " + temperature;
+            tempToString.text = weatherReport;
+
+            //update bools
+            if(rain > 0)
+            {
+                isRainy = true;
+            }
+            else
+            {
+                isRainy = false;
+            }
         }
     }
 
@@ -99,4 +125,23 @@ public class EnvironmentManager : MonoBehaviour
             OnlineWeatherUpdate();
         }
     }
+}
+
+[Serializable]
+public class WeatherData
+{
+    public MainData main;
+}
+
+[Serializable]
+public class MainData
+{
+    public float temp;
+    public RainData rain; // Assuming rain data is provided in the JSON response
+}
+
+[Serializable]
+public class RainData
+{
+    public float oneHour;
 }
