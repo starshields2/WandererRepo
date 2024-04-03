@@ -6535,22 +6535,22 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b75149278155f8c48aeedbceca1b76fb,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.6038
+      value: 0.7058003
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b75149278155f8c48aeedbceca1b76fb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.33
+      value: 3.315
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b75149278155f8c48aeedbceca1b76fb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.041
+      value: 0.003
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b75149278155f8c48aeedbceca1b76fb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.531
+      value: -2.533
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b75149278155f8c48aeedbceca1b76fb,
         type: 3}
@@ -6675,7 +6675,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 495630268}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.68, y: 7.78, z: 4.21}
+  m_LocalPosition: {x: 0.68, y: 7.28, z: 2.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6837,7 +6837,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.6
+      scalar: 0.36
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -7007,7 +7007,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.1
-      minScalar: 0.1
+      minScalar: 0.01
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -7060,7 +7060,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 1
-      minScalar: 2
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -7698,7 +7698,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 30
+        scalar: 25
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -7748,7 +7748,7 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 1
+      cycleCount: 0
       repeatInterval: 0.01
       probability: 1
   SizeModule:
@@ -8024,7 +8024,7 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.7853982
+      scalar: 0.84264493
       minScalar: 0.7853982
       maxCurve:
         serializedVersion: 2
@@ -8084,8 +8084,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.43943575, g: 0.6035489, b: 0.745283, a: 1}
-        key1: {r: 0.17421682, g: 0.31032985, b: 0.8207547, a: 1}
+        key0: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 0.44455323, g: 0.5303569, b: 0.8490566, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -9459,7 +9459,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   NoiseModule:
-    enabled: 0
+    enabled: 1
     strength:
       serializedVersion: 2
       minMaxState: 0
@@ -12192,7 +12192,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.25
+      scalar: 0.51
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -12308,7 +12308,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.09
+      scalar: 0.06
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -16771,7 +16771,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 711976319}
   m_LocalRotation: {x: -0.67020917, y: -0.24650711, z: -0.2531316, w: 0.65267015}
-  m_LocalPosition: {x: -0.644, y: -0.644, z: 4.819}
+  m_LocalPosition: {x: -0.956, y: -0.64, z: 4.728}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16793,22 +16793,22 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b75149278155f8c48aeedbceca1b76fb,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.6038
+      value: 0.6842132
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b75149278155f8c48aeedbceca1b76fb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.523
+      value: 3.499
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b75149278155f8c48aeedbceca1b76fb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.059
+      value: 0.128
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b75149278155f8c48aeedbceca1b76fb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.763
+      value: -1.766
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b75149278155f8c48aeedbceca1b76fb,
         type: 3}
@@ -17801,7 +17801,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 0ab1316b88f48fe4fa85677dcd7c8ca3, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 9ae098727e05b534597418b91b8550de, type: 2}
 --- !u!1 &923224347
 GameObject:
   m_ObjectHideFlags: 0

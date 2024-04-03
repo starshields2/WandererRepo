@@ -101,14 +101,6 @@ public class EnvironmentManager : MonoBehaviour
             float temperature = weatherData.main.temp;
             float rain = 0f;
 
-            foreach (var minuteData in weatherData.minutely)
-            {
-                if(minuteData.precipitation > 0)
-                {
-                    rain = minuteData.precipitation;
-                    break;
-                }
-            }// Assuming rain data is provided in the JSON response
 
             Debug.Log("Current temperature: " + temperature + "°F");
             Debug.Log("Current rain: " + rain);

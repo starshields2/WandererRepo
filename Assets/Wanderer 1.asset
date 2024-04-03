@@ -43,16 +43,16 @@ MonoBehaviour:
   active: 1
   color:
     m_OverrideState: 1
-    m_Value: {r: 0, g: 0.9529412, b: 0.7127363, a: 1}
+    m_Value: {r: 0, g: 0.509434, b: 0.38155138, a: 1}
   center:
     m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.35
+    m_Value: 0.462
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.854
+    m_Value: 1
   rounded:
     m_OverrideState: 0
     m_Value: 0
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: Wanderer
+  m_Name: Wanderer 1
   m_EditorClassIdentifier: 
   components:
   - {fileID: -3609681447823696617}
@@ -122,7 +122,7 @@ MonoBehaviour:
     m_Value: 65472
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.3773585, g: 0.22961909, b: 0.23216632, a: 1}
+    m_Value: {r: 0.5042383, g: 0.3820755, b: 1, a: 1}
   highQualityFiltering:
     m_OverrideState: 0
     m_Value: 0
