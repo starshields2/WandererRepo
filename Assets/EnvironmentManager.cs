@@ -7,11 +7,13 @@ using TMPro;
 public class EnvironmentManager : MonoBehaviour
 {
     string apiKey = "0ffb08cb572db172c4a77e34ca5d5c25"; // Replace with your OpenWeatherMap API key
-    string url = "https://api.openweathermap.org/data/2.5/weather?q=Dallas&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
+    string url = "https://api.openweathermap.org/data/2.5/weather?q=Columbus&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
 
     [Header("Weather")]
     public string weatherReport;
+    public string rainReport;
     public TextMeshProUGUI tempToString;
+    public TextMeshProUGUI rainToString;
     public bool isRainy;
     public bool isDrought;
     public bool isSunny;
@@ -92,18 +94,30 @@ public class EnvironmentManager : MonoBehaviour
         {
             // Parse JSON response
             string jsonResponse = www.downloadHandler.text;
+            //Weather Data = OpenWeather API Response.
             WeatherData weatherData = JsonUtility.FromJson<WeatherData>(jsonResponse);
 
             // Access temperature and rain from current weather data
             float temperature = weatherData.main.temp;
-            float rain = weatherData.main.rain.oneHour; // Assuming rain data is provided in the JSON response
+            float rain = 0f;
+
+            foreach (var minuteData in weatherData.minutely)
+            {
+                if(minuteData.precipitation > 0)
+                {
+                    rain = minuteData.precipitation;
+                    break;
+                }
+            }// Assuming rain data is provided in the JSON response
 
             Debug.Log("Current temperature: " + temperature + "°F");
             Debug.Log("Current rain: " + rain);
 
             // Display temperature
             weatherReport = "Temp: " + temperature;
+            rainReport = "Rain: " + rain;
             tempToString.text = weatherReport;
+            rainToString.text = rainReport;
 
             //update bools
             if(rain > 0)
@@ -124,8 +138,23 @@ public class EnvironmentManager : MonoBehaviour
             Debug.Log("Checking weather...");
             OnlineWeatherUpdate();
         }
+
+        if (Input.touchCount > 0)
+        {
+            // Loop through all the touches
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                // Check if the touch phase is began (finger touched the screen)
+                if (Input.GetTouch(i).phase == TouchPhase.Began)
+                {
+                    OnlineWeatherUpdate();
+                }
+            }
+        }
     }
+
 }
+
 
 [Serializable]
 public class WeatherData
@@ -144,4 +173,9 @@ public class MainData
 public class RainData
 {
     public float oneHour;
+}
+[Serializable]
+public class Minutely
+{
+    public float precipitation;
 }
