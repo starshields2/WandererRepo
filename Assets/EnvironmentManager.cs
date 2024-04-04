@@ -7,7 +7,7 @@ using TMPro;
 public class EnvironmentManager : MonoBehaviour
 {
     string apiKey = "0ffb08cb572db172c4a77e34ca5d5c25"; // Replace with your OpenWeatherMap API key
-    string url = "https://api.openweathermap.org/data/2.5/weather?q=Columbus&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
+    string url = "https://api.openweathermap.org/data/2.5/weather?q=Toronto&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
 
     [Header("Weather")]
     public string weatherReport;
@@ -17,6 +17,7 @@ public class EnvironmentManager : MonoBehaviour
     public bool isRainy;
     public bool isDrought;
     public bool isSunny;
+    public GameObject rainWeather;
 
     [Header("WaterLevel")]
     public float waterLevel;
@@ -99,9 +100,9 @@ public class EnvironmentManager : MonoBehaviour
 
             // Access temperature and rain from current weather data
             float temperature = weatherData.main.temp;
-            float rain = 0f;
+            float rain = weatherData.main.rain.oneHour;
 
-
+            Debug.Log(jsonResponse);
             Debug.Log("Current temperature: " + temperature + "°F");
             Debug.Log("Current rain: " + rain);
 
@@ -115,6 +116,7 @@ public class EnvironmentManager : MonoBehaviour
             if(rain > 0)
             {
                 isRainy = true;
+                
             }
             else
             {
@@ -143,6 +145,15 @@ public class EnvironmentManager : MonoBehaviour
                 }
             }
         }
+        if (isRainy)
+        {
+            rainWeather.SetActive(true);
+        }
+
+        if (!isRainy)
+        {
+            rainWeather.SetActive(false);
+        }
     }
 
 }
@@ -158,6 +169,7 @@ public class WeatherData
 public class MainData
 {
     public float temp;
+    public Minutely precipitation;
     public RainData rain; // Assuming rain data is provided in the JSON response
 }
 
