@@ -20,6 +20,7 @@ public class EnvironmentManager : MonoBehaviour
     public bool isRainy;
     public bool isDrought;
     public bool isSunny;
+    public GameObject rainWeather;
 
     [Header("WaterLevel")]
     public float waterLevel;
@@ -110,7 +111,7 @@ public class EnvironmentManager : MonoBehaviour
             string description = weatherData.weather[0].description; // Assuming there's only one weather entry
 
             Debug.Log(jsonResponse);
-            Debug.Log("Current temperature: " + temperature + "°F");
+            Debug.Log("Current temperature: " + temperature + "ï¿½F");
             Debug.Log("Current rain: " + rain);
             Debug.Log("Weather description: " + description);
 
@@ -175,6 +176,7 @@ public class WeatherData
 public class MainData
 {
     public float temp;
+    public Minutely precipitation;
     public RainData rain; // Assuming rain data is provided in the JSON response
 }
 
