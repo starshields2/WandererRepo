@@ -3,17 +3,20 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
 using TMPro;
+using System.Collections.Generic;
 
 public class EnvironmentManager : MonoBehaviour
 {
     string apiKey = "0ffb08cb572db172c4a77e34ca5d5c25"; // Replace with your OpenWeatherMap API key
-    string url = "https://api.openweathermap.org/data/2.5/weather?q=Columbus&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
+    string url = "https://api.openweathermap.org/data/2.5/weather?q=Pembroke&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
 
     [Header("Weather")]
     public string weatherReport;
     public string rainReport;
+    public string weatherDescriptionReport; // New field for weather description
     public TextMeshProUGUI tempToString;
     public TextMeshProUGUI rainToString;
+    public TextMeshProUGUI weatherDescriptionToString; // New field for weather description
     public bool isRainy;
     public bool isDrought;
     public bool isSunny;
@@ -24,12 +27,16 @@ public class EnvironmentManager : MonoBehaviour
     [Header("Time")]
     public bool isDay;
     public bool isNight;
+    [Header("WeatherObjects")]
+    public GameObject rainFX;
 
     [SerializeField]
     string longitude, latitude;
 
     void Start()
     {
+        
+      
         if (!Input.location.isEnabledByUser)
         {
             Debug.Log("Location not enabled!");
@@ -97,29 +104,32 @@ public class EnvironmentManager : MonoBehaviour
             //Weather Data = OpenWeather API Response.
             WeatherData weatherData = JsonUtility.FromJson<WeatherData>(jsonResponse);
 
-            // Access temperature and rain from current weather data
+            // Access temperature, rain, and weather description from current weather data
             float temperature = weatherData.main.temp;
-            float rain = 0f;
+            var rain = weatherData.main.rain.oneHour;
+            string description = weatherData.weather[0].description; // Assuming there's only one weather entry
 
-
+            Debug.Log(jsonResponse);
             Debug.Log("Current temperature: " + temperature + "°F");
             Debug.Log("Current rain: " + rain);
+            Debug.Log("Weather description: " + description);
 
-            // Display temperature
+            // Display temperature, rain, and weather description
             weatherReport = "Temp: " + temperature;
             rainReport = "Rain: " + rain;
+            weatherDescriptionReport = "Description: " + description;
             tempToString.text = weatherReport;
             rainToString.text = rainReport;
+            weatherDescriptionToString.text = weatherDescriptionReport;
+        }
 
-            //update bools
-            if(rain > 0)
-            {
-                isRainy = true;
-            }
-            else
-            {
-                isRainy = false;
-            }
+        if (weatherDescriptionReport.Contains("rain"))
+        {
+            isRainy = true;
+        }
+        else
+        {
+            isRainy = false;
         }
     }
 
@@ -143,15 +153,22 @@ public class EnvironmentManager : MonoBehaviour
                 }
             }
         }
+        if (isRainy)
+        {
+            rainFX.SetActive(true);
+        }
+        else
+        {
+            rainFX.SetActive(false);
+        }
     }
-
 }
-
 
 [Serializable]
 public class WeatherData
 {
     public MainData main;
+    public List<Weather> weather;
 }
 
 [Serializable]
@@ -166,8 +183,9 @@ public class RainData
 {
     public float oneHour;
 }
+
 [Serializable]
-public class Minutely
+public class Weather
 {
-    public float precipitation;
+    public string description;
 }
