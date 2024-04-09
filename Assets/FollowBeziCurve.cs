@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.XR.ARSubsystems;
+using TasiYokan.Curve;
 
 public class FollowBeziCurve : MonoBehaviour
 {
@@ -58,6 +60,10 @@ public class FollowBeziCurve : MonoBehaviour
                 StartCoroutine(RunSequence());
                 break;
             case FishState.Hide:
+                if (_isMovingAlongCurve)
+                    StopMovingAlongCurve();
+                StartCoroutine(RunSequence());
+              
                 break;
             default:
                 break;

@@ -8,6 +8,17 @@ public class TimeAndDate : MonoBehaviour
 {
     public TextMeshProUGUI timestring;
     public TextMeshProUGUI datestring;
+
+    [Header("TimeObjects")]
+    public GameObject daytime;
+
+    private enum TimeofDay
+    {
+        Dawn,
+        Day,
+        Evening,
+        Night
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +32,8 @@ public class TimeAndDate : MonoBehaviour
         timestring.text = time;
         string date = System.DateTime.UtcNow.ToLocalTime().ToString("dd-MM-yyyy");
         datestring.text = date;
+
     }
+
+    
 }

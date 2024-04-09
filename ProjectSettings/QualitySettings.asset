@@ -209,11 +209,11 @@ QualitySettings:
     antiAliasing: 0
     softParticles: 1
     softVegetation: 1
-    realtimeReflectionProbes: 1
+    realtimeReflectionProbes: 0
     billboardsFaceCameraPosition: 1
-    vSyncCount: 1
+    vSyncCount: 0
     realtimeGICPUUsage: 100
-    lodBias: 2
+    lodBias: 1
     maximumLODLevel: 0
     streamingMipmapsActive: 0
     streamingMipmapsAddAllCameras: 1
@@ -230,7 +230,7 @@ QualitySettings:
       type: 2}
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
-    Android: 2
+    Android: 5
     Lumin: 5
     Nintendo Switch: 5
     PS4: 5

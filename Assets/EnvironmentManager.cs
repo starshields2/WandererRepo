@@ -8,9 +8,10 @@ using System.Collections.Generic;
 public class EnvironmentManager : MonoBehaviour
 {
     string apiKey = "0ffb08cb572db172c4a77e34ca5d5c25"; // Replace with your OpenWeatherMap API key
-    string url = "https://api.openweathermap.org/data/2.5/weather?q=Pembroke&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
+    string url = "https://api.openweathermap.org/data/2.5/weather?q=Dallas&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
 
     [Header("Weather")]
+    public float localTemp;
     public string weatherReport;
     public string rainReport;
     public string weatherDescriptionReport; // New field for weather description
@@ -80,7 +81,7 @@ public class EnvironmentManager : MonoBehaviour
         Input.location.Stop();
 
         // Make weather update call
-        OnlineWeatherUpdate();
+      //  OnlineWeatherUpdate();
     }
 
     void OnlineWeatherUpdate() => StartCoroutine(ShowandLoadWeatherData());
@@ -111,6 +112,7 @@ public class EnvironmentManager : MonoBehaviour
 
             Debug.Log(jsonResponse);
             Debug.Log("Current temperature: " + temperature + "°F");
+            localTemp = temperature;
             Debug.Log("Current rain: " + rain);
             Debug.Log("Weather description: " + description);
 
@@ -135,6 +137,7 @@ public class EnvironmentManager : MonoBehaviour
 
     void Update()
     {
+        //OnlineWeatherUpdate();
         if (Input.GetKeyDown(KeyCode.R))
         {
             Debug.Log("Checking weather...");
