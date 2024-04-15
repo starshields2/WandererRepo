@@ -8,7 +8,7 @@ public class YellowBass : MonoBehaviour
 {
     [Header("Movement Controller")]
     public FollowBeziCurve beziMover;
-
+    public TimeAndDate timemanager;
     [Header("Weather Controller")]
     public EnvironmentManager enviManager;
 
@@ -24,6 +24,14 @@ public class YellowBass : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (timemanager.YellowBassActive)
+        {
+            this.gameObject.SetActive(true);
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
         if (enviManager.localTemp < 62f || enviManager.localTemp > 82f)
         {
             beziMover.currentState = FollowBeziCurve.FishState.Hide;

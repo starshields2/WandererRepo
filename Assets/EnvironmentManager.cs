@@ -10,7 +10,9 @@ public class EnvironmentManager : MonoBehaviour
     string apiKey = "0ffb08cb572db172c4a77e34ca5d5c25"; // Replace with your OpenWeatherMap API key
     string url = "https://api.openweathermap.org/data/2.5/weather?q=Dallas&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
 
+    public GameObject debugui;
     [Header("Weather")]
+    public float weatherUpInt = 300f;
     public float localTemp;
     public string weatherReport;
     public string rainReport;
@@ -47,6 +49,7 @@ public class EnvironmentManager : MonoBehaviour
             Debug.Log("Gathering location");
             StartCoroutine(GetLocation());
         }
+        StartCoroutine(GetWeatherNow());
     }
 
     IEnumerator GetLocation()
@@ -125,7 +128,7 @@ public class EnvironmentManager : MonoBehaviour
             weatherDescriptionToString.text = weatherDescriptionReport;
         }
 
-        if (weatherDescriptionReport.Contains("rain"))
+        if (weatherDescriptionReport.Contains("rain") || (weatherDescriptionReport.Contains("thunderstorm")))
         {
             isRainy = true;
         }
@@ -142,6 +145,7 @@ public class EnvironmentManager : MonoBehaviour
         {
             Debug.Log("Checking weather...");
             OnlineWeatherUpdate();
+            debugui.SetActive(true);
         }
 
         if (Input.touchCount > 0)
@@ -153,6 +157,9 @@ public class EnvironmentManager : MonoBehaviour
                 if (Input.GetTouch(i).phase == TouchPhase.Began)
                 {
                     OnlineWeatherUpdate();
+
+                    debugui.SetActive(true);
+
                 }
             }
         }
@@ -163,6 +170,16 @@ public class EnvironmentManager : MonoBehaviour
         else
         {
             rainFX.SetActive(false);
+        }
+    }
+
+    public IEnumerator GetWeatherNow()
+    {
+
+        while (true) {
+            OnlineWeatherUpdate();
+            Debug.Log("updated weather.");
+            yield return new WaitForSeconds(weatherUpInt);
         }
     }
 }

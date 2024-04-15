@@ -28,6 +28,52 @@ MonoBehaviour:
   rounded:
     m_OverrideState: 1
     m_Value: 0
+--- !u!114 &-3829966906027378632
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
+  m_Name: DepthOfField
+  m_EditorClassIdentifier: 
+  active: 1
+  mode:
+    m_OverrideState: 1
+    m_Value: 1
+  gaussianStart:
+    m_OverrideState: 1
+    m_Value: 3.4
+  gaussianEnd:
+    m_OverrideState: 1
+    m_Value: 6.92
+  gaussianMaxRadius:
+    m_OverrideState: 0
+    m_Value: 1
+  highQualitySampling:
+    m_OverrideState: 0
+    m_Value: 0
+  focusDistance:
+    m_OverrideState: 0
+    m_Value: 10
+  aperture:
+    m_OverrideState: 0
+    m_Value: 5.6
+  focalLength:
+    m_OverrideState: 0
+    m_Value: 50
+  bladeCount:
+    m_OverrideState: 0
+    m_Value: 5
+  bladeCurvature:
+    m_OverrideState: 0
+    m_Value: 1
+  bladeRotation:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!114 &-3609681447823696617
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -43,16 +89,16 @@ MonoBehaviour:
   active: 1
   color:
     m_OverrideState: 1
-    m_Value: {r: 0, g: 0.48333502, b: 1, a: 1}
+    m_Value: {r: 0, g: 0.24528301, b: 0.11660414, a: 1}
   center:
     m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.35
+    m_Value: 0.392
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.854
+    m_Value: 1
   rounded:
     m_OverrideState: 0
     m_Value: 0
@@ -71,13 +117,13 @@ MonoBehaviour:
   active: 1
   lift:
     m_OverrideState: 1
-    m_Value: {x: 0.582622, y: 0.47147816, z: 1, w: 0}
+    m_Value: {x: 0.4813233, y: 0.5843256, z: 1, w: 0}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.99895835, z: 0.7562721, w: 0}
+    m_Value: {x: 1, y: 0.6742053, z: 0.657445, w: -0.14285713}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 0.50640863, y: 1, z: 0.8814829, w: 0}
+    m_Value: {x: 0.50640863, y: 1, z: 0.8814829, w: -0.42857143}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,13 +134,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: Wanderer
+  m_Name: WandererNight
   m_EditorClassIdentifier: 
   components:
   - {fileID: -3609681447823696617}
   - {fileID: 4540591209369844260}
   - {fileID: -3009146395752277628}
-  - {fileID: 5398818539036581404}
+  - {fileID: -3829966906027378632}
+  - {fileID: 7203324236555682590}
 --- !u!114 &4540591209369844260
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -110,10 +157,10 @@ MonoBehaviour:
   active: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.9
+    m_Value: 0.75
   intensity:
     m_OverrideState: 1
-    m_Value: 6.88
+    m_Value: 2.51
   scatter:
     m_OverrideState: 1
     m_Value: 1
@@ -122,7 +169,7 @@ MonoBehaviour:
     m_Value: 65472
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 0.276868, b: 0, a: 1}
+    m_Value: {r: 0.60817677, g: 0.5613208, b: 1, a: 1}
   highQualityFiltering:
     m_OverrideState: 0
     m_Value: 0
@@ -136,7 +183,7 @@ MonoBehaviour:
   dirtIntensity:
     m_OverrideState: 0
     m_Value: 0
---- !u!114 &5398818539036581404
+--- !u!114 &7203324236555682590
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,16 +192,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70afe9e12c7a7ed47911bb608a23a8ff, type: 3}
-  m_Name: SplitToning
+  m_Script: {fileID: 11500000, guid: cdfbdbb87d3286943a057f7791b43141, type: 3}
+  m_Name: ChannelMixer
   m_EditorClassIdentifier: 
   active: 1
-  shadows:
+  redOutRedIn:
+    m_OverrideState: 0
+    m_Value: 100
+  redOutGreenIn:
     m_OverrideState: 1
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  highlights:
+    m_Value: -89
+  redOutBlueIn:
     m_OverrideState: 1
-    m_Value: {r: 0.735849, g: 0.016435675, b: 0, a: 1}
-  balance:
-    m_OverrideState: 1
-    m_Value: -100
+    m_Value: -176
+  greenOutRedIn:
+    m_OverrideState: 0
+    m_Value: 0
+  greenOutGreenIn:
+    m_OverrideState: 0
+    m_Value: 100
+  greenOutBlueIn:
+    m_OverrideState: 0
+    m_Value: 0
+  blueOutRedIn:
+    m_OverrideState: 0
+    m_Value: 0
+  blueOutGreenIn:
+    m_OverrideState: 0
+    m_Value: 0
+  blueOutBlueIn:
+    m_OverrideState: 0
+    m_Value: 100
