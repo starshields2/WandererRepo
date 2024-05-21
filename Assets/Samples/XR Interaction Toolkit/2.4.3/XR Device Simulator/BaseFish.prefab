@@ -112,14 +112,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1de4e6ed562b094ea4218324e4b3569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpot: {fileID: 0}
-  hideSpot: {fileID: 0}
-  human: {fileID: 0}
-  isSwim: 0
-  cube: {fileID: 0}
-  runDist: 10
-  hideDist: 6
-  curDist: 0
+  beziMover: {fileID: 0}
+  timemanager: {fileID: 0}
+  enviManager: {fileID: 0}
+  friendWith: []
+  avoiding: []
+  chasing: []
 --- !u!1001 &1062834281788113227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -135,17 +133,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ae5f67c91222a22458563fea9bd62ba1,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.18323626
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ae5f67c91222a22458563fea9bd62ba1,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.18323626
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ae5f67c91222a22458563fea9bd62ba1,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.18323626
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ae5f67c91222a22458563fea9bd62ba1,
         type: 3}

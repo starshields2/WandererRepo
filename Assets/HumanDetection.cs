@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
+using System.Linq;
 
 public class HumanDetection : MonoBehaviour
 {
     public ARFaceManager arFace;
-    public YellowBass[] yBass;
+    public FollowBeziCurve[] yBass;
 
     private void OnEnable()
     {
@@ -26,9 +27,9 @@ public class HumanDetection : MonoBehaviour
 
     private void OnFacesChanged(ARFacesChangedEventArgs args)
     {
-       foreach(YellowBass fish in yBass)
+       foreach(FollowBeziCurve fish in yBass)
         {
-            fish.currentState = YellowBass.FishState.Run;
+            fish.currentState = FollowBeziCurve.FishState.Run;
         }
         foreach (var addedFace in args.added)
         {

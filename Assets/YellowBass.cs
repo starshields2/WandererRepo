@@ -2,162 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARSubsystems;
+using TasiYokan.Curve;
 
 public class YellowBass : MonoBehaviour
 {
-    public float speed;
-    [Header("Transforms")]
-    public Transform[] swimSpots;
-    public Transform runSpot;
-    public Transform hideSpot; 
-    public Transform human;
-    public bool isSwim;
-    public TestCube cube; 
-
-    [Header("Distance Checks")]
-    public float runDist = 10f;
-    public float hideDist = 6f;
-    public float curDist = 0f;
+    [Header("Movement Controller")]
+    public FollowBeziCurve beziMover;
+    public TimeAndDate timemanager;
+    [Header("Weather Controller")]
+    public EnvironmentManager enviManager;
 
     [Header("Social Interaction")]
     public GameObject[] friendWith;
     public GameObject[] avoiding;
     public GameObject[] chasing;
-    //fish state enums
-    public FishState currentState = FishState.RegularSwim;
-
-    public enum FishState
-    {
-        Idle,
-        RegularSwim,
-        Run,
-        Hide
-    }
 
     void Start()
     {
-        currentState = FishState.RegularSwim;
+
     }
-        // Update is called once per frame
-        void Update()
-        {
-        
-
-        
-
-        switch (currentState)
-            {
-                case FishState.Idle:
-                    break;
-                case FishState.RegularSwim:
-                StartSwimming(1f);
-                    break;
-                case FishState.Run:
-                StopCoroutine(Swim());
-                StartCoroutine(RunSequence());
-                    break;
-                case FishState.Hide:
-                    Hide();
-                    break;
-                default:
-                    break;
-            }
-
-            curDist = Vector3.Distance(human.position, transform.position);
-
-            if (curDist <= runDist)
-            {
-               // currentState = FishState.Run;
-            }
-            else if (curDist <= hideDist)
-            {
-               // currentState = FishState.Hide;
-            }
-            else
-            {
-               // currentState = FishState.RegularSwim;
-            }
-        }
-
-        public void Run()
-        {
-        StartCoroutine(RunSequence());
-        }
-
-    public IEnumerator RunSequence()
+    // Update is called once per frame
+    void Update()
     {
-        if (Vector3.Distance(transform.position, hideSpot.position) > 0.1f)
+        if (timemanager.YellowBassActive)
         {
-            transform.LookAt(hideSpot);
-            float speed = 3f;
-            transform.position = Vector3.MoveTowards(transform.position, hideSpot.position, speed * Time.deltaTime);
-            cube.Green();
+            this.gameObject.SetActive(true);
         }
         else
         {
-            // If the fish has reached the hide spot, change its state
-            yield return new WaitForSeconds(5f);
-            currentState = FishState.RegularSwim;
+            this.gameObject.SetActive(false);
         }
-    }
-        public void Hide()
+        if (enviManager.localTemp < 62f || enviManager.localTemp > 82f)
         {
-            if (Vector3.Distance(transform.position, runSpot.position) > 0.1f)
-            {
-                float speed = 1f;
-                transform.position = Vector3.MoveTowards(transform.position, runSpot.position, speed * Time.deltaTime);
-            }
-            else
-            {
-                // If the fish has reached the run spot, change its state
-                currentState = FishState.Run;
-            }
+            beziMover.currentState = FollowBeziCurve.FishState.Hide;
         }
-
-      public void OnTriggerStay(Collider other)
-    {
-        GameObject[] fish;
-        fish = GameObject.FindGameObjectsWithTag("fish"); //get all the fish game objects
-        if(fish.Length > 8)
+        else
         {
-            //run away
+            // Temperature is within the range, you may want to handle this case.
         }
+
+
     }
-    private int currentIndex = 0;
-
-    public void StartSwimming(float dTime)
-    {
-        // Start the swim coroutine
-        StartCoroutine(Swim());
-    }
-
-    public IEnumerator Swim()
-    {
-        while (true) // Continue swimming indefinitely
-        {
-            // Move to the current swim spot
-            yield return StartCoroutine(MoveToSwimSpot(swimSpots[currentIndex], speed));
-
-            
-
-            // Add a delay before moving to the next swim spot
-            yield return new WaitForSeconds(1f);
-        }
-    }
-
-    private IEnumerator MoveToSwimSpot(Transform spot, float speed)
-    {
-        transform.LookAt(spot);
-
-        while (Vector3.Distance(transform.position, spot.position) > 0.1f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, spot.position, speed * Time.deltaTime);
-            yield return null;
-        }
-            // Move to the next swim spot index (randomly)
-            currentIndex = Random.Range(0, swimSpots.Length);
-    }
-
 }
 
 
