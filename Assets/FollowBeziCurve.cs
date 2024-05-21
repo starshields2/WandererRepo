@@ -11,6 +11,7 @@ public class FollowBeziCurve : MonoBehaviour
     [SerializeField] private Transform[] _targets;
     [SerializeField] private Transform _objectToMove;
     [SerializeField] private float _movementSpeed = 2f;
+    public float fleeSpeed;
 
     public Transform hideSpot; // Changed GameObject to Transform
     private Coroutine _moveCoroutine;
@@ -96,7 +97,7 @@ public class FollowBeziCurve : MonoBehaviour
             while (Vector3.Distance(transform.position, hideSpot.position) > 0.1f)
             {
                 transform.LookAt(hideSpot);
-                float speed = 1.5f;
+                float speed = fleeSpeed;
                 transform.position = Vector3.MoveTowards(transform.position, hideSpot.position, speed * Time.deltaTime);
                 yield return null;
             }

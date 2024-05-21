@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turtle : MonoBehaviour
+public class BlueGill : MonoBehaviour
 {
-
     [Header("Movement Controller")]
     public FollowBeziCurve beziMover;
     public TimeAndDate timemanager;
@@ -18,13 +17,13 @@ public class Turtle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //friendWith[] = GameObject.FindGameObjectsWithTag("Yellow Bass");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timemanager.TurtleActive)
+        if (timemanager.BGActive)
         {
             this.gameObject.SetActive(true);
         }
@@ -32,13 +31,13 @@ public class Turtle : MonoBehaviour
         {
             this.gameObject.SetActive(false);
         }
-        if (enviManager.localTemp < 75f || enviManager.localTemp > 85f)
+        if (enviManager.localTemp < 65f || enviManager.localTemp > 85f)
         {
             beziMover.currentState = FollowBeziCurve.FishState.Hide;
         }
         else
         {
-            // Temperature is within the range, you may want to handle this case.
+            // 
         }
 
     }

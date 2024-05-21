@@ -14,6 +14,8 @@ public class TimeAndDate : MonoBehaviour
 
     [Header("FishManager")]
     public bool YellowBassActive = true;
+    public bool TurtleActive = true;
+    public bool BGActive = true;
 
     public enum TimeofDay
     {
@@ -37,7 +39,7 @@ public class TimeAndDate : MonoBehaviour
     {
         string time = System.DateTime.UtcNow.ToLocalTime().ToString("HH:mm");
         timestring.text = time;
-        string date = System.DateTime.UtcNow.ToLocalTime().ToString("dd-MM-yyyy");
+        string date = System.DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd");
         datestring.text = date;
 
         //if time is between x and y switch to other post processing object. 
@@ -100,7 +102,7 @@ public class TimeAndDate : MonoBehaviour
                 break;
         }
 
-        //Fish manager stuff
+        //Fish manager stuff. FIND A MORE EFFICIENT WAY
         if(timeTick > 11 && timeTick < 17)
         {
             YellowBassActive = false; 
@@ -108,6 +110,22 @@ public class TimeAndDate : MonoBehaviour
         else
         {
             YellowBassActive = true;
+        }
+        if (timeTick > 17 || timeTick < 6)
+        {
+            TurtleActive = false;
+        }
+        else
+        {
+            TurtleActive = true;
+        }
+        if (timeTick > 5 && timeTick < 22)
+        {
+            BGActive = true;
+        }
+        else
+        {
+            BGActive = false;
         }
 
 
