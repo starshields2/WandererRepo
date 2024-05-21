@@ -167,53 +167,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.mars": {
-      "version": "1.5.0",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.xrtools.utils": "1.4.1",
-        "com.unity.xrtools.module-loader": "1.4.1",
-        "com.unity.textmeshpro": "2.0.1",
-        "com.unity.timeline": "1.2.18",
-        "com.unity.modules.physics": "1.0.0",
-        "com.unity.modules.video": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.mars-ar-foundation-providers": {
-      "version": "1.5.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.xrtools.utils": "1.4.1",
-        "com.unity.xrtools.module-loader": "1.4.1",
-        "com.unity.mars": "1.5.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.mars-nav-mesh": {
-      "version": "1.5.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.xrtools.utils": "1.4.1",
-        "com.unity.mars": "1.5.0",
-        "com.unity.modules.ai": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.mars.tutorials": {
-      "version": "file:../localcontentpacks/com.unity.mars.tutorials",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {
-        "com.unity.learn.iet-framework": "2.1.0",
-        "com.unity.mars": "1.4.1",
-        "com.unity.xrtools.module-loader": "1.4.1",
-        "com.unity.xrtools.utils": "1.4.1"
-      }
-    },
     "com.unity.mathematics": {
       "version": "1.2.6",
       "depth": 1,
