@@ -948,6 +948,7 @@ MonoBehaviour:
   _movementSpeed: 2
   fleeSpeed: 1.87
   hideSpot: {fileID: 394954716}
+  _points: []
   currentState: 1
 --- !u!4 &172865281
 Transform:
@@ -21514,6 +21515,7 @@ MonoBehaviour:
   _movementSpeed: 1
   fleeSpeed: 1.5
   hideSpot: {fileID: 394954716}
+  _points: []
   currentState: 1
 --- !u!120 &1485781602
 LineRenderer:
@@ -28556,6 +28558,7 @@ MonoBehaviour:
   _movementSpeed: 0.75
   fleeSpeed: 1.5
   hideSpot: {fileID: 394954716}
+  _points: []
   currentState: 1
 --- !u!120 &1868361241
 LineRenderer:
@@ -29235,6 +29238,7 @@ MonoBehaviour:
   _movementSpeed: 1.2
   fleeSpeed: 1.5
   hideSpot: {fileID: 394954716}
+  _points: []
   currentState: 1
 --- !u!120 &1967349196
 LineRenderer:
@@ -31047,17 +31051,17 @@ PrefabInstance:
     - target: {fileID: 2494048041931424314, guid: a2f651c24969ce34a9314ce65f3b7856,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.959
+      value: 0.946
       objectReference: {fileID: 0}
     - target: {fileID: 2494048041931424314, guid: a2f651c24969ce34a9314ce65f3b7856,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.407
+      value: -0.379
       objectReference: {fileID: 0}
     - target: {fileID: 2494048041931424314, guid: a2f651c24969ce34a9314ce65f3b7856,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.038
+      value: 0.107
       objectReference: {fileID: 0}
     - target: {fileID: 2639364975703062146, guid: a2f651c24969ce34a9314ce65f3b7856,
         type: 3}
