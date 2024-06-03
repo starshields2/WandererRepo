@@ -11,13 +11,14 @@ public class FollowBeziCurve : MonoBehaviour
     [SerializeField] private Transform[] _targets;
     [SerializeField] private Transform _objectToMove;
     [SerializeField] private float _movementSpeed = 2f;
+  // public  Vector3[] controlPoints;
     public float fleeSpeed;
 
     public Transform hideSpot; // Changed GameObject to Transform
     private Coroutine _moveCoroutine;
     private bool _isMovingAlongCurve = false;
 
-    private Vector3[] _points;
+    public Vector3[] _points;
     public enum FishState
     {
         Idle,

@@ -15,42 +15,49 @@ public class LongNoseGar : MonoBehaviour
     public GameObject[] avoiding;
     public GameObject[] chasing;
 
+    private FollowBeziCurve chaseMover;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnTriggerStay(Collider other)
     {
         Debug.Log("EnterCollider");
-        if(ArrayContainsObject(chasing, other.gameObject))
+        if (ArrayContainsObject(chasing, other.gameObject))
         {
             Debug.Log("chasing " + other.gameObject.name);
-            //chase logic
-            //needs to deactivate bezi mover, and become child of fish. 
-            //but it can only do that, for one fish. 
-           
-            beziMover.enabled = false;
-            transform.parent = other.gameObject.transform;
-            Vector3 offset = new Vector3(0f, 1f, -12f);
-            transform.localPosition = offset;
-            transform.localRotation = Quaternion.identity;
-        }
 
+            // Get the FollowBeziCurve component from the other fish
+            chaseMover = other.GetComponent<FollowBeziCurve>();
+            if (chaseMover != null)
+            {
+                StartChasing();
+            }
+        }
+    }
+
+    public void StartChasing()
+    {
+        if (beziMover != null && chaseMover != null)
+        {
+            beziMover._points = (Vector3[])chaseMover._points.Clone();
+        }
     }
 
     bool ArrayContainsObject(GameObject[] array, GameObject obj)
     {
         foreach (GameObject item in array)
         {
-            if(item == obj)
+            if (item == obj)
             {
                 return true;
             }
