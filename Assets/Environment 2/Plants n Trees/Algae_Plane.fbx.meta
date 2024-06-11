@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 921edc0d7d2ea9a47a5572d382fe44b6
+guid: cdcdbd04512099f4eb83d43e453d03e4
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Short_Grass_01
-    second: {fileID: 2100000, guid: 58ac037456ef9e94e9a6fc77e6d38def, type: 2}
+      name: T_Algae
+    second: {fileID: 2100000, guid: b91560b1cf088b144add0e1094fc7f40, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -3,7 +3,12 @@ guid: 0485959a4cc2b154698a8b7eab14fec4
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FallenTree_01
+    second: {fileID: 2100000, guid: 75e8ce2aaf076ca49a3f64f6e0d8b16f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
