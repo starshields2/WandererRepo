@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
 using TMPro;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class EnvironmentManager : MonoBehaviour
@@ -12,6 +13,7 @@ public class EnvironmentManager : MonoBehaviour
 
     public GameObject debugui;
     [Header("Weather")]
+    public Slider LocalTempSlide;
     public float weatherUpInt = 300f;
     public float localTemp;
     public string weatherReport;
@@ -140,6 +142,8 @@ public class EnvironmentManager : MonoBehaviour
 
     void Update()
     {
+        localTemp = LocalTempSlide.value;
+
         //OnlineWeatherUpdate();
         if (Input.GetKeyDown(KeyCode.R))
         {

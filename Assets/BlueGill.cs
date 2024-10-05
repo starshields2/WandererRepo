@@ -7,8 +7,11 @@ public class BlueGill : MonoBehaviour
     [Header("Movement Controller")]
     public FollowBeziCurve beziMover;
     public TimeAndDate timemanager;
+    //public GameObject blueGills;
+
     [Header("Weather Controller")]
     public EnvironmentManager enviManager;
+    public MicrophoneManager micInput;
 
     [Header("Social Interaction")]
     public GameObject[] friendWith;

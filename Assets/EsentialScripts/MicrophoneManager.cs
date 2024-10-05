@@ -1,17 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Android;
+using TMPro;
 
-//[RequireComponent(typeof(AudioSource))]
 public class MicrophoneManager : MonoBehaviour
 {
+    [Header("Microphone")]
     public bool micConnect = false;
-    public AudioSource goAudioSource;
-   
+    public string selectedDevice;
+    public TextMeshProUGUI device;
+    public BlueGill[] blueGills;
+
+    private int sampleWindow = 128; // Window size for calculating dB (can be adjusted)
+    private AudioClip micClip;
+
+
+    [Header("Text Items")]
+    public TextMeshProUGUI db;
+    public float textDb;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        if (Permission.HasUserAuthorizedPermission(Permission.Microphone))
+        {
+            // The user authorized use of the microphone.
+            Debug.Log("has authorized");
+        }
+        else
+        {
+            // We do not have permission to use the microphone.
+            // Ask for permission or proceed without the functionality enabled.
+       
+            Permission.RequestUserPermission(Permission.Microphone);
+
+        }
+    
+
         if (Microphone.devices.Length <= 0)
         {
             Debug.Log("Mic not connected!");
@@ -19,21 +47,21 @@ public class MicrophoneManager : MonoBehaviour
         else
         {
             micConnect = true;
+            selectedDevice = Microphone.devices[0];
+            Debug.Log("Microphone: " + selectedDevice);
+            device.text = selectedDevice.ToString();
         }
 
-        goAudioSource = GetComponent<AudioSource>();
-
-        // Start microphone recording
-        goAudioSource.clip = Microphone.Start(null, true, 10, AudioSettings.outputSampleRate);
-        goAudioSource.loop = true;
-        goAudioSource.volume = 0; // Mute the audio source
-
-        // Wait until the microphone starts recording
-        while (!(Microphone.GetPosition(null) > 0))
+        if (micConnect)
         {
-        }
+            // Start microphone recording with looping, but without playing through an AudioSource
+            micClip = Microphone.Start(selectedDevice, true, 10, 44100);
 
-        goAudioSource.Play();
+            // Wait until the microphone starts recording
+            while (!(Microphone.GetPosition(selectedDevice) > 0)) { }
+
+            Debug.Log("Microphone recording started.");
+        }
     }
 
     // Update is called once per frame
@@ -41,22 +69,57 @@ public class MicrophoneManager : MonoBehaviour
     {
         if (micConnect)
         {
-            // Get spectrum data
-            float[] spectrumData = new float[256];
-            goAudioSource.GetSpectrumData(spectrumData, 0, FFTWindow.BlackmanHarris);
+          textDb = GetRelativeDecibelLevel();
+           // Debug.Log("Current dB level: " + textDb);
+        }
+        db.text = "DB: " + textDb;
 
-            // Calculate RMS (Root Mean Square)
-            float sum = 0;
-            for (int i = 0; i < spectrumData.Length; i++)
+        if (textDb > 85)
+        {
+            // Loop through the array of BlueGill objects and set their state to Hide
+            foreach (var blueGill in blueGills)
             {
-                sum += spectrumData[i] * spectrumData[i];
+                Debug.Log("Hide Bluegill");
+                blueGill.beziMover.currentState = FollowBeziCurve.FishState.Hide;
             }
-            float rmsValue = Mathf.Sqrt(sum / spectrumData.Length);
-
-            // Calculate dB value
-            float dbValue = 20 * Mathf.Log10(rmsValue / 0.1f); // Assuming 0.1 is reference level
-
-            Debug.Log("Current microphone level in dB: " + dbValue);
+        }
+        else
+        {
+            // If decibel is not above 75, ensure all fish are in Swim state
+            foreach (var blueGill in blueGills)
+            {
+                blueGill.beziMover.currentState = FollowBeziCurve.FishState.RegularSwim;
+            }
         }
     }
+
+    // Function to calculate the decibel level of the microphone input
+    // Function to calculate the decibel level of the microphone input and map it to a relative scale (0-140)
+    float GetRelativeDecibelLevel()
+    {
+        float[] audioData = new float[sampleWindow];
+
+        // Get the audio data directly from the Microphone
+        int micPosition = Microphone.GetPosition(selectedDevice) - sampleWindow + 1;
+        if (micPosition < 0) return 0f; // If there's no data yet, return 0 as silence
+
+        micClip.GetData(audioData, micPosition); // Get microphone data
+
+        float sum = 0f;
+        for (int i = 0; i < sampleWindow; i++)
+        {
+            sum += audioData[i] * audioData[i]; // Square the audio data values
+        }
+
+        float rmsValue = Mathf.Sqrt(sum / sampleWindow); // Root mean square (RMS)
+        float dBValue = 20 * Mathf.Log10(rmsValue / 0.1f); // Convert RMS to dB
+
+        if (float.IsInfinity(dBValue)) dBValue = -80f; // Handle silent audio
+
+        // Map dB values (-80 to 0 or higher) to a relative range (0 to 140)
+        float relativeDb = Mathf.Clamp(dBValue + 80, 0, 140); // Shift -80 dB to 0 and clamp to 140 dB max
+
+        return relativeDb;
+    }
+
 }
