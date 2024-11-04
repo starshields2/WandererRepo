@@ -12,6 +12,9 @@ public class MicrophoneManager : MonoBehaviour
     public string selectedDevice;
     public TextMeshProUGUI device;
     public BlueGill[] blueGills;
+    public YellowBass[] yBass;
+    public LongNoseGar[] LNG;
+    public Turtle[] turts;
 
     private int sampleWindow = 128; // Window size for calculating dB (can be adjusted)
     private AudioClip micClip;
@@ -82,6 +85,11 @@ public class MicrophoneManager : MonoBehaviour
                 Debug.Log("Hide Bluegill");
                 blueGill.beziMover.currentState = FollowBeziCurve.FishState.Hide;
             }
+            foreach (var yellowBass in yBass)
+            {
+                Debug.Log("Hide Bluegill");
+                yellowBass.beziMover.currentState = FollowBeziCurve.FishState.Hide;
+            }
         }
         else
         {
@@ -89,6 +97,39 @@ public class MicrophoneManager : MonoBehaviour
             foreach (var blueGill in blueGills)
             {
                 blueGill.beziMover.currentState = FollowBeziCurve.FishState.RegularSwim;
+            }
+            foreach (var yellowBass in yBass)
+            {
+                Debug.Log("Hide YBass");
+                yellowBass.beziMover.currentState = FollowBeziCurve.FishState.RegularSwim;
+            }
+        }
+
+        if (textDb > 65)
+        {
+            // Loop through the array of BlueGill objects and set their state to Hide
+            foreach (var lnGar in LNG)
+            {
+                Debug.Log("Hide LNG");
+                lnGar.beziMover.currentState = FollowBeziCurve.FishState.Hide;
+            }
+            foreach (var turtle in turts)
+            {
+                Debug.Log("Hide Bluegill");
+                turtle.beziMover.currentState = FollowBeziCurve.FishState.Hide;
+            }
+        }
+        else
+        {
+            // If decibel is not above 75, ensure all fish are in Swim state
+            foreach (var lnGar in LNG)
+            {
+                lnGar.beziMover.currentState = FollowBeziCurve.FishState.RegularSwim;
+            }
+            foreach (var turtle in turts)
+            {
+                Debug.Log("Hide YBass");
+                turtle.beziMover.currentState = FollowBeziCurve.FishState.RegularSwim;
             }
         }
     }

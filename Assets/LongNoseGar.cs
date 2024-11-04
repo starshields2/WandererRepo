@@ -26,7 +26,10 @@ public class LongNoseGar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (enviManager.localTemp < 65f || enviManager.localTemp > 85f)
+        {
+            beziMover.currentState = FollowBeziCurve.FishState.Hide;
+        }
     }
 
     public void OnTriggerStay(Collider other)

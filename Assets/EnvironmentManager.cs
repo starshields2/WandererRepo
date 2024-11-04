@@ -14,6 +14,7 @@ public class EnvironmentManager : MonoBehaviour
     public GameObject debugui;
     [Header("Weather")]
     public Slider LocalTempSlide;
+    //time between check weather
     public float weatherUpInt = 300f;
     public float localTemp;
     public string weatherReport;

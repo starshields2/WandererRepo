@@ -11,11 +11,13 @@ public class TimeAndDate : MonoBehaviour
     [Header("TimeObjects")]
     public GameObject[] PostProcessingObject;
     public int timeTick;
+    public int ThisMonth;
 
     [Header("FishManager")]
     public bool YellowBassActive = true;
     public bool TurtleActive = true;
     public bool BGActive = true;
+    public bool LNGarActive = true;
 
     public enum TimeofDay
     {
@@ -37,13 +39,14 @@ public class TimeAndDate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        string time = System.DateTime.UtcNow.ToLocalTime().ToString("HH:mm");
-        timestring.text = time;
-        string date = System.DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd");
-        datestring.text = date;
+        var currentDateTime = System.DateTime.UtcNow.ToLocalTime(); // Capture current time once per frame
+        timeTick = currentDateTime.Hour; // Use the stored value for timeTick
 
-        //if time is between x and y switch to other post processing object. 
-        timeTick = System.DateTime.UtcNow.ToLocalTime().Hour;
+        timestring.text = currentDateTime.ToString("HH:mm"); // Use the stored value for displaying time
+        datestring.text = currentDateTime.ToString("yyyy-MM-dd"); // Use the stored value for displaying date
+
+        Debug.Log("Current Local Time Hour: " + currentDateTime.Hour); // Use the same stored value for logging
+
         if (timeTick >= 4 && timeTick < 6)
         {
             sunPosition = TimeofDay.Dawn;
@@ -105,7 +108,8 @@ public class TimeAndDate : MonoBehaviour
         //Fish manager stuff. FIND A MORE EFFICIENT WAY
         if(timeTick > 11 && timeTick < 17)
         {
-            YellowBassActive = false; 
+            YellowBassActive = false;
+            LNGarActive = false;
         }
         else
         {
@@ -128,7 +132,14 @@ public class TimeAndDate : MonoBehaviour
             BGActive = false;
         }
 
-
-
+       ThisMonth = timeTick = System.DateTime.UtcNow.ToLocalTime().Month;
+        print(ThisMonth);
+    }
+    public void CheckMonth()
+    {
+        if (ThisMonth > 2 && ThisMonth < 6)
+        {
+            YellowBassActive = false;
+        }
     }
 }
