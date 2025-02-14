@@ -11,12 +11,12 @@ public class FollowBeziCurve : MonoBehaviour
     [SerializeField] private Transform[] _targets;
     [SerializeField] private Transform _objectToMove;
     [SerializeField] private float _movementSpeed = 2f;
-  // public  Vector3[] controlPoints;
-    public float fleeSpeed;
+    public float fleeSpeed = 5f;
 
     public Transform hideSpot; // Changed GameObject to Transform
     private Coroutine _moveCoroutine;
-    private bool _isMovingAlongCurve = false;
+    private Coroutine _hideCoroutine;
+    public bool _isMovingAlongCurve = false;
 
     public Vector3[] _points;
     public enum FishState
@@ -26,7 +26,7 @@ public class FollowBeziCurve : MonoBehaviour
         Run,
         Hide
     }
-    public FishState currentState = FishState.RegularSwim;
+    public FishState currentState = FishState.Idle;
 
     private void Start()
     {
@@ -37,48 +37,58 @@ public class FollowBeziCurve : MonoBehaviour
         }
 
         GenerateCurve();
-        currentState = FishState.RegularSwim;
-
-        // Start moving the object along the curve
-        if (currentState == FishState.RegularSwim)
-            StartMovingAlongCurve();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         switch (currentState)
         {
             case FishState.Idle:
+                StopMovingAlongCurve();
                 break;
+
             case FishState.RegularSwim:
-                // Check if the coroutine is already running before starting a new one
                 if (!_isMovingAlongCurve)
-                    StartMovingAlongCurve();
+                {
+                    Debug.Log("Not moving along curve. Starting movement.");
+                    StartMovingAlongCurve();  // Only start the coroutine once
+                }
                 break;
+
             case FishState.Run:
-                // Stop the coroutine if it's running
-                if (_isMovingAlongCurve)
-                    StopMovingAlongCurve();
-                StartCoroutine(RunSequence());
+                // Handle run state logic here, if needed
                 break;
+
             case FishState.Hide:
-                if (_isMovingAlongCurve)
-                    StopMovingAlongCurve();
-                StartCoroutine(RunSequence());
-              
+                _isMovingAlongCurve = false;
+                // This will stop the curve movement immediately and start the hiding sequence
+                if (!_isMovingAlongCurve && _hideCoroutine == null) // Only start hiding if not moving and hiding coroutine is not running
+                {
+                    StopMovingAlongCurve();  // Immediately stop the curve movement
+                    Debug.Log("Start hiding sequence.");
+                    _hideCoroutine = StartCoroutine(RunSequence()); // Ensure it only runs once
+                }
                 break;
+
             default:
                 break;
         }
     }
 
+
     private void StartMovingAlongCurve()
     {
-        // Check if _points are available and not empty
+        _movementSpeed = 2f;
+        StartCoroutine(CurveBuffer());
+    }
+
+    public IEnumerator CurveBuffer()
+    {
+        yield return new WaitForSeconds(1);
         if (_points == null || _points.Length == 0)
         {
             Debug.LogError("No curve points available!");
-            return;
+            yield return null;
         }
 
         _isMovingAlongCurve = true;
@@ -87,31 +97,58 @@ public class FollowBeziCurve : MonoBehaviour
 
     private void StopMovingAlongCurve()
     {
-        _isMovingAlongCurve = false;
-        StopCoroutine(_moveCoroutine);
+        if (_isMovingAlongCurve)
+        {
+            Debug.Log("Stopping current movement along curve.");
+            _movementSpeed = 0;
+
+            if (_moveCoroutine != null)
+            {
+                StopCoroutine(_moveCoroutine);
+                _moveCoroutine = null;
+            }
+            _isMovingAlongCurve = false; // Reset this flag when stopping
+        }
     }
 
     public IEnumerator RunSequence()
     {
+        _isMovingAlongCurve = false;
+        // Immediately stop any current movement and ensure the curve movement is stopped
+        Debug.Log("Stopping movement before hiding...");
+        StopMovingAlongCurve(); // This ensures any curve movement is stopped immediately
+
+        // No wait for delay — make it immediate
         if (hideSpot != null) // Check if hideSpot is assigned
         {
+            Debug.Log("Starting to move to hide spot...");
+
+            // Move towards the hide spot immediately
             while (Vector3.Distance(transform.position, hideSpot.position) > 0.1f)
             {
                 transform.LookAt(hideSpot);
                 float speed = fleeSpeed;
                 transform.position = Vector3.MoveTowards(transform.position, hideSpot.position, speed * Time.deltaTime);
-                yield return null;
+                yield return null; // Keep moving the object to the hide spot
             }
 
-            // If the fish has reached the hide spot, change its state
-            yield return new WaitForSeconds(5f);
+            // Once close to the hide spot, stop and wait for a bit
+            Debug.Log("Done hiding.");
+            yield return new WaitForSeconds(5f); // Wait for 5 seconds at the hide spot
+
+            // After waiting, change state to RegularSwim
             currentState = FishState.RegularSwim;
+
+            // Reset the hideCoroutine to allow re-triggering the hiding process
+            _hideCoroutine = null;
         }
         else
         {
             Debug.LogError("Hide spot is not assigned!");
+            _hideCoroutine = null;
         }
     }
+
 
     private void GenerateCurve()
     {
@@ -172,21 +209,47 @@ public class FollowBeziCurve : MonoBehaviour
         return points;
     }
 
-    private IEnumerator MoveObjectAlongCurve()
+    public IEnumerator MoveObjectAlongCurve()
     {
         int currentIndex = 0;
-        while (true)
+
+        while (currentIndex < _points.Length)
         {
+            // Check if we should stop moving along the curve
+            if (!_isMovingAlongCurve)
+                yield break; // Stop the coroutine immediately if we are no longer moving along the curve
+
+            // Start at the current point
+            Vector3 startPoint = _objectToMove.position;
             Vector3 targetPosition = _points[currentIndex];
 
-            transform.LookAt(targetPosition);
-            while (Vector3.Distance(_objectToMove.position, targetPosition) > 0.01f)
+            // Interpolate between the start and target position smoothly over time
+            float journeyLength = Vector3.Distance(startPoint, targetPosition);
+            float startTime = Time.time;
+            float distanceCovered = (Time.time - startTime) * _movementSpeed;
+
+            // Move the object smoothly from the start position to the target
+            while (distanceCovered < journeyLength)
             {
-                _objectToMove.position = Vector3.MoveTowards(_objectToMove.position, targetPosition, _movementSpeed * Time.deltaTime);
+                if (!_isMovingAlongCurve)
+                    yield break; // Break the loop if we're not moving along the curve anymore
+
+                transform.LookAt(targetPosition);
+                float fractionOfJourney = distanceCovered / journeyLength;
+                _objectToMove.position = Vector3.Lerp(startPoint, targetPosition, fractionOfJourney);
+                distanceCovered = (Time.time - startTime) * _movementSpeed;
                 yield return null;
             }
 
-            currentIndex = (currentIndex + 1) % _points.Length;
+            // Ensure the object reaches the exact target position after finishing the loop
+            _objectToMove.position = targetPosition;
+
+            // Move to the next point
+            currentIndex++;
         }
+
+        // End of the path, handle if needed
+        _isMovingAlongCurve = false;
     }
+
 }

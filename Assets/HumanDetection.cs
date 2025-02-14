@@ -8,6 +8,7 @@ public class HumanDetection : MonoBehaviour
 {
     public ARFaceManager arFace;
     public FollowBeziCurve[] yBass;
+    public bool faceDetected = false;
 
     private void OnEnable()
     {
@@ -27,15 +28,29 @@ public class HumanDetection : MonoBehaviour
 
     private void OnFacesChanged(ARFacesChangedEventArgs args)
     {
-       foreach(FollowBeziCurve fish in yBass)
+        // If there are newly added faces, we set faceDetected to true
+        if (args.added.Count > 0)
         {
-            fish.currentState = FollowBeziCurve.FishState.Run;
+            faceDetected = false;
+            Debug.Log("New face detected!");
         }
-        foreach (var addedFace in args.added)
+        else
         {
-            // Run your custom code here when a face is detected
-            Debug.Log("A new face is detected!");
-         
+            faceDetected = false; // Optionally, set it to false if you want to reset when no faces are detected.
         }
+
+        // You can also handle removed faces if needed
+        if (args.removed.Count > 0)
+        {
+            faceDetected = false;
+            Debug.Log("Face removed");
+        }
+    }
+
+
+    [ContextMenu("FaceDetect")]
+    public void FaceDetect()
+    {
+        faceDetected = !faceDetected;
     }
 }

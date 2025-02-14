@@ -22,6 +22,7 @@ public class EnvironmentManager : MonoBehaviour
     public string weatherDescriptionReport; // New field for weather description
     public TextMeshProUGUI tempToString;
     public TextMeshProUGUI rainToString;
+    public TextMeshProUGUI tempDebug;
     public TextMeshProUGUI weatherDescriptionToString; // New field for weather description
     public bool isRainy;
     public bool isDrought;
@@ -144,6 +145,7 @@ public class EnvironmentManager : MonoBehaviour
     void Update()
     {
         localTemp = LocalTempSlide.value;
+        tempDebug.text = LocalTempSlide.value.ToString();
 
         //OnlineWeatherUpdate();
         if (Input.GetKeyDown(KeyCode.R))

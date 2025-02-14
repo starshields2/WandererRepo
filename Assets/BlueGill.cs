@@ -26,22 +26,6 @@ public class BlueGill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timemanager.BGActive)
-        {
-            this.gameObject.SetActive(true);
-        }
-        else
-        {
-            this.gameObject.SetActive(false);
-        }
-        if (enviManager.localTemp < 65f || enviManager.localTemp > 85f)
-        {
-            beziMover.currentState = FollowBeziCurve.FishState.Hide;
-        }
-        else
-        {
-            // 
-        }
 
     }
 }

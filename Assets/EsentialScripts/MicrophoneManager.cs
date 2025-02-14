@@ -16,6 +16,8 @@ public class MicrophoneManager : MonoBehaviour
     public LongNoseGar[] LNG;
     public Turtle[] turts;
 
+    public bool BGActive = true;
+
     private int sampleWindow = 128; // Window size for calculating dB (can be adjusted)
     private AudioClip micClip;
 
@@ -27,6 +29,7 @@ public class MicrophoneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        BGActive = true;
 
         if (Permission.HasUserAuthorizedPermission(Permission.Microphone))
         {
@@ -72,67 +75,27 @@ public class MicrophoneManager : MonoBehaviour
     {
         if (micConnect)
         {
-          textDb = GetRelativeDecibelLevel();
-           // Debug.Log("Current dB level: " + textDb);
+            textDb = GetRelativeDecibelLevel();
         }
         db.text = "DB: " + textDb;
 
-        if (textDb > 85)
+        // If the dB level is greater than or equal to 85, deactivate BGActive
+        if (textDb >= 85)
         {
-            // Loop through the array of BlueGill objects and set their state to Hide
-            foreach (var blueGill in blueGills)
-            {
-                Debug.Log("Hide Bluegill");
-                blueGill.beziMover.currentState = FollowBeziCurve.FishState.Hide;
-            }
-            foreach (var yellowBass in yBass)
-            {
-                Debug.Log("Hide Bluegill");
-                yellowBass.beziMover.currentState = FollowBeziCurve.FishState.Hide;
-            }
+            Debug.Log("should hide");
+            BGActive = false;
         }
-        else
+        if (textDb < 85)
         {
-            // If decibel is not above 75, ensure all fish are in Swim state
-            foreach (var blueGill in blueGills)
-            {
-                blueGill.beziMover.currentState = FollowBeziCurve.FishState.RegularSwim;
-            }
-            foreach (var yellowBass in yBass)
-            {
-                Debug.Log("Hide YBass");
-                yellowBass.beziMover.currentState = FollowBeziCurve.FishState.RegularSwim;
-            }
-        }
-
-        if (textDb > 65)
-        {
-            // Loop through the array of BlueGill objects and set their state to Hide
-            foreach (var lnGar in LNG)
-            {
-                Debug.Log("Hide LNG");
-                lnGar.beziMover.currentState = FollowBeziCurve.FishState.Hide;
-            }
-            foreach (var turtle in turts)
-            {
-                Debug.Log("Hide Bluegill");
-                turtle.beziMover.currentState = FollowBeziCurve.FishState.Hide;
-            }
-        }
-        else
-        {
-            // If decibel is not above 75, ensure all fish are in Swim state
-            foreach (var lnGar in LNG)
-            {
-                lnGar.beziMover.currentState = FollowBeziCurve.FishState.RegularSwim;
-            }
-            foreach (var turtle in turts)
-            {
-                Debug.Log("Hide YBass");
-                turtle.beziMover.currentState = FollowBeziCurve.FishState.RegularSwim;
-            }
+            BGActive = true;
         }
     }
+
+    public void SetBG()
+    {
+        
+    }
+
 
     // Function to calculate the decibel level of the microphone input
     // Function to calculate the decibel level of the microphone input and map it to a relative scale (0-140)
