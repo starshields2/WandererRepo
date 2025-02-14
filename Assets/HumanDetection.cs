@@ -8,7 +8,15 @@ public class HumanDetection : MonoBehaviour
 {
     public ARFaceManager arFace;
     public FollowBeziCurve[] yBass;
-    public bool faceDetected = false;
+
+    [SerializeField] // This will allow you to manually edit the field in the Inspector during runtime
+    public bool faceDetected;
+    public bool face;
+
+    void Start()
+    {
+        // Initialize or any other setup needed
+    }
 
     private void OnEnable()
     {
@@ -28,29 +36,30 @@ public class HumanDetection : MonoBehaviour
 
     private void OnFacesChanged(ARFacesChangedEventArgs args)
     {
-        // If there are newly added faces, we set faceDetected to true
+        // If there are newly added faces, set faceDetected to true
         if (args.added.Count > 0)
         {
-            faceDetected = false;
+            face = true; // A face has been detected
             Debug.Log("New face detected!");
         }
         else
         {
-            faceDetected = false; // Optionally, set it to false if you want to reset when no faces are detected.
+            face = false; // No faces detected, set faceDetected to false
+            Debug.Log("No faces detected.");
         }
 
-        // You can also handle removed faces if needed
+        // If faces are removed, set faceDetected to false
         if (args.removed.Count > 0)
         {
-            faceDetected = false;
+            //faceDetected = false;
             Debug.Log("Face removed");
         }
     }
 
-
-    [ContextMenu("FaceDetect")]
-    public void FaceDetect()
+    // Method to manually set the value of faceDetected during runtime (useful for testing)
+    public void SetFaceDetected(bool value)
     {
-        faceDetected = !faceDetected;
+        faceDetected = value;
+        Debug.Log("faceDetected manually set to: " + faceDetected);
     }
 }

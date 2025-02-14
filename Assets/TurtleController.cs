@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlueGillController : MonoBehaviour
+public class TurtleController : MonoBehaviour
 {
-    public GameObject[] allBGill;
-    public FollowBeziCurve[] bGillScript;
+    public GameObject[] allTurt;
+    public FollowBeziCurve[] turtleScript;
     public HumanDetection humanDetection;
     public TimeAndDate timeManager;
     public MicrophoneManager audioManager;
@@ -28,9 +28,9 @@ public class BlueGillController : MonoBehaviour
     void Update()
     {
         //month & time
-        if(timeManager.BGActive == false)
+        if (timeManager.TurtleActive == false)
         {
-            Debug.Log("No Fish Active");
+            Debug.Log("No Turtle Active");
             DeactivateFish();
             timeOn = false;
         }
@@ -41,9 +41,9 @@ public class BlueGillController : MonoBehaviour
             ActivateFish();
         }
         //temp 
-        if (envManager.localTemp < 65f || envManager.localTemp > 85f)
-            {
-            foreach (FollowBeziCurve fish in bGillScript)
+        if (envManager.localTemp < 75f || envManager.localTemp > 85f)
+        {
+            foreach (FollowBeziCurve fish in turtleScript)
             {
                 tempOn = false;
                 Debug.Log("TEMP HIDE");
@@ -54,21 +54,21 @@ public class BlueGillController : MonoBehaviour
         {
             tempOn = true;
         }
-            //face
-        if (humanDetection.face == true) {
-            Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            foreach (FollowBeziCurve fish in bGillScript)
+        //face
+        if (humanDetection.face == true)
+        {
+            foreach (FollowBeziCurve fish in turtleScript)
             {
                 Debug.Log("FACE HIDE");
                 fish.currentState = FollowBeziCurve.FishState.Hide;
             }
         }
         //sound
-       
-        if(audioManager.textDb >= 85)
+
+        if (audioManager.textDb >= 75)
         {
-            Debug.Log("should hide - from bgcontrol");
-            foreach (FollowBeziCurve fish in bGillScript)
+        
+            foreach (FollowBeziCurve fish in turtleScript)
             {
                 soundOn = false;
                 Debug.Log("SOUND HIDE");
@@ -86,14 +86,14 @@ public class BlueGillController : MonoBehaviour
 
     public void DeactivateFish()
     {
-        foreach (GameObject fish in allBGill)
+        foreach (GameObject fish in allTurt)
         {
             fish.SetActive(false);
         }
     }
     public void ActivateFish()
     {
-        foreach (GameObject fish in allBGill)
+        foreach (GameObject fish in allTurt)
         {
             fish.SetActive(true);
         }
