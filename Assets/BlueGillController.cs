@@ -22,6 +22,11 @@ public class BlueGillController : MonoBehaviour
     void Start()
     {
         tempCheck = envManager.localTemp;
+        //for each BlueGill, set hiding time to two minutes.
+        foreach (FollowBeziCurve fish in bGillScript)
+        {
+            fish._hideTime = 120f;
+        }
     }
 
     // Update is called once per frame

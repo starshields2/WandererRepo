@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurtleController : MonoBehaviour
+public class PaddleFishController : MonoBehaviour
 {
-    public GameObject[] allTurt;
-    public FollowBeziCurve[] turtleScript;
+    public GameObject[] allPaddles;
+    public FollowBeziCurve[] _paddleScript;
     public HumanDetection humanDetection;
     public TimeAndDate timeManager;
     public MicrophoneManager audioManager;
@@ -22,7 +22,7 @@ public class TurtleController : MonoBehaviour
     void Start()
     {
         tempCheck = envManager.localTemp;
-        foreach (FollowBeziCurve fish in turtleScript)
+        foreach (FollowBeziCurve fish in _paddleScript)
         {
             fish._hideTime = 600f;
         }
@@ -32,9 +32,9 @@ public class TurtleController : MonoBehaviour
     void Update()
     {
         //month & time
-        if (timeManager.TurtleActive == false)
+        if (timeManager.LNGarActive == false)
         {
-            Debug.Log("No Turtle Active");
+            Debug.Log("No Fish Active");
             DeactivateFish();
             timeOn = false;
         }
@@ -45,9 +45,9 @@ public class TurtleController : MonoBehaviour
             ActivateFish();
         }
         //temp 
-        if (envManager.localTemp < 75f || envManager.localTemp > 85f)
+        if (envManager.localTemp < 54f || envManager.localTemp > 75f)
         {
-            foreach (FollowBeziCurve fish in turtleScript)
+            foreach (FollowBeziCurve fish in _paddleScript)
             {
                 tempOn = false;
                 Debug.Log("TEMP HIDE");
@@ -61,7 +61,8 @@ public class TurtleController : MonoBehaviour
         //face
         if (humanDetection.face == true)
         {
-            foreach (FollowBeziCurve fish in turtleScript)
+            Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            foreach (FollowBeziCurve fish in _paddleScript)
             {
                 Debug.Log("FACE HIDE");
                 fish.currentState = FollowBeziCurve.FishState.Hide;
@@ -69,10 +70,10 @@ public class TurtleController : MonoBehaviour
         }
         //sound
 
-        if (audioManager.textDb >= 75)
+        if (audioManager.textDb >= 65)
         {
-        
-            foreach (FollowBeziCurve fish in turtleScript)
+            Debug.Log("should hide - from bgcontrol");
+            foreach (FollowBeziCurve fish in _paddleScript)
             {
                 soundOn = false;
                 Debug.Log("SOUND HIDE");
@@ -86,19 +87,16 @@ public class TurtleController : MonoBehaviour
     }
 
     [ContextMenu("DeactivateFish")]
-
-
     public void DeactivateFish()
     {
-        foreach (GameObject fish in allTurt)
+        foreach (GameObject fish in allPaddles)
         {
             fish.SetActive(false);
         }
     }
     public void ActivateFish()
     {
-        foreach (GameObject fish in allTurt)
-        {
+        foreach (GameObject fish in allPaddles) { 
             fish.SetActive(true);
         }
     }

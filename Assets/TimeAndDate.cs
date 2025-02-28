@@ -21,6 +21,7 @@ public class TimeAndDate : MonoBehaviour
     public bool TurtleActive = true;
     public bool BGActive = true;
     public bool LNGarActive = true;
+    public bool PaddleActive = true;
 
 
     public enum MonthofYear
@@ -187,6 +188,7 @@ public class TimeAndDate : MonoBehaviour
                 break;
             case MonthofYear.Jan:
                 YellowBassActive = false;
+            
                 break;
             case MonthofYear.Feb:
                 YellowBassActive = true;
@@ -249,6 +251,14 @@ public class TimeAndDate : MonoBehaviour
         {
             BGActive = false;
         }
+        if(timeTick>3 && timeTick < 19)
+        {
+            PaddleActive = true;
+        }
+        else
+        {
+            PaddleActive = false;
+        }
 
        ThisMonth = timeTick = System.DateTime.UtcNow.ToLocalTime().Month;
         print(ThisMonth);
@@ -258,6 +268,14 @@ public class TimeAndDate : MonoBehaviour
         if (ThisMonth > 2 && ThisMonth < 6)
         {
             YellowBassActive = false;
+        }
+        if (ThisMonth > 2 && ThisMonth < 5)
+        {
+            PaddleActive = false;
+        }
+        else
+        {
+            PaddleActive = true;
         }
     }
 

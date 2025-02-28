@@ -22,6 +22,10 @@ public class YellowBassController : MonoBehaviour
     void Start()
     {
         tempCheck = envManager.localTemp;
+        foreach (FollowBeziCurve fish in yBassScript)
+        {
+            fish._hideTime = 120f;
+        }
     }
 
     // Update is called once per frame

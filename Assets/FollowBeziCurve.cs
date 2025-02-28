@@ -11,6 +11,7 @@ public class FollowBeziCurve : MonoBehaviour
     [SerializeField] private Transform[] _targets;
     [SerializeField] private Transform _objectToMove;
     [SerializeField] private float _movementSpeed = 2f;
+    [SerializeField] public float _hideTime = 2f;
     public float fleeSpeed = 5f;
 
     public Transform hideSpot; // Changed GameObject to Transform
@@ -134,7 +135,7 @@ public class FollowBeziCurve : MonoBehaviour
 
             // Once close to the hide spot, stop and wait for a bit
             Debug.Log("Done hiding.");
-            yield return new WaitForSeconds(5f); // Wait for 5 seconds at the hide spot
+            yield return new WaitForSeconds(_hideTime); // Wait for 5 seconds at the hide spot
 
             // After waiting, change state to RegularSwim
             currentState = FishState.RegularSwim;

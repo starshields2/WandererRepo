@@ -141,11 +141,14 @@ public class EnvironmentManager : MonoBehaviour
             isRainy = false;
         }
     }
-
-    void Update()
+    public void ChangeTempToSlide()
     {
         localTemp = LocalTempSlide.value;
-        tempDebug.text = LocalTempSlide.value.ToString();
+    }
+    void Update()
+    {
+        //localTemp = LocalTempSlide.value;
+        tempDebug.text = localTemp.ToString();
 
         //OnlineWeatherUpdate();
         if (Input.GetKeyDown(KeyCode.R))
@@ -153,6 +156,7 @@ public class EnvironmentManager : MonoBehaviour
             Debug.Log("Checking weather...");
             OnlineWeatherUpdate();
             debugui.SetActive(true);
+            LocalTempSlide.value = localTemp;
         }
 
         if (Input.touchCount > 0)
@@ -164,7 +168,7 @@ public class EnvironmentManager : MonoBehaviour
                 if (Input.GetTouch(i).phase == TouchPhase.Began)
                 {
                     OnlineWeatherUpdate();
-
+                    LocalTempSlide.value = localTemp;
                     debugui.SetActive(true);
 
                 }
