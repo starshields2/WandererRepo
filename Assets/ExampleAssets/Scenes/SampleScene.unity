@@ -32553,7 +32553,7 @@ MonoBehaviour:
   sunSpot: {fileID: 797296591}
   _isMovingAlongCurve: 0
   _points: []
-  currentState: 0
+  currentState: 1
 --- !u!1 &2017264417
 GameObject:
   m_ObjectHideFlags: 0
