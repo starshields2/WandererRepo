@@ -12,9 +12,11 @@ public class FollowBeziCurve : MonoBehaviour
     [SerializeField] private Transform _objectToMove;
     [SerializeField] private float _movementSpeed = 2f;
     [SerializeField] public float _hideTime = 2f;
+    [SerializeField] public float _sunbatheTime = 20f;
     public float fleeSpeed = 5f;
 
-    public Transform hideSpot; // Changed GameObject to Transform
+    public Transform hideSpot;
+    public Transform sunSpot;
     private Coroutine _moveCoroutine;
     private Coroutine _hideCoroutine;
     public bool _isMovingAlongCurve = false;
@@ -25,9 +27,10 @@ public class FollowBeziCurve : MonoBehaviour
         Idle,
         RegularSwim,
         Run,
-        Hide
+        Hide,
+        Sunbathe
     }
-    public FishState currentState = FishState.Idle;
+    public FishState currentState = FishState.Hide;
 
     private void Start()
     {
@@ -70,7 +73,16 @@ public class FollowBeziCurve : MonoBehaviour
                     _hideCoroutine = StartCoroutine(RunSequence()); // Ensure it only runs once
                 }
                 break;
-
+            case FishState.Sunbathe:
+                _isMovingAlongCurve = false;
+                // This will stop the curve movement immediately and start the hiding sequence
+                if (!_isMovingAlongCurve && _hideCoroutine == null) // Only start hiding if not moving and hiding coroutine is not running
+                {
+                    StopMovingAlongCurve();  // Immediately stop the curve movement
+                    Debug.Log("Start sunbathe sequence.");
+                    _hideCoroutine = StartCoroutine(SunbatheSequence()); // Ensure it only runs once
+                }
+                break;
             default:
                 break;
         }
@@ -150,6 +162,43 @@ public class FollowBeziCurve : MonoBehaviour
         }
     }
 
+    public IEnumerator SunbatheSequence()
+    {
+        _isMovingAlongCurve = false;
+        // Immediately stop any current movement and ensure the curve movement is stopped
+        Debug.Log("Stopping movement before hiding...");
+        StopMovingAlongCurve(); // This ensures any curve movement is stopped immediately
+
+        // No wait for delay — make it immediate
+        if (sunSpot != null) // Check if hideSpot is assigned
+        {
+            Debug.Log("Starting to move to SUNBATHE spot...");
+
+            // Move towards the hide spot immediately
+            while (Vector3.Distance(transform.position, sunSpot.position) > 0.1f)
+            {
+                transform.LookAt(hideSpot);
+                float speed = fleeSpeed;
+                transform.position = Vector3.MoveTowards(transform.position, sunSpot.position, speed * Time.deltaTime);
+                yield return null; // Keep moving the object to the hide spot
+            }
+
+            // Once close to the hide spot, stop and wait for a bit
+            Debug.Log("Done hiding.");
+            yield return new WaitForSeconds(_sunbatheTime); // Wait for seconds at the hide spot
+
+            // After waiting, change state to RegularSwim
+            currentState = FishState.RegularSwim;
+
+            // Reset the hideCoroutine to allow re-triggering the hiding process
+            _hideCoroutine = null;
+        }
+        else
+        {
+            Debug.LogError("Hide spot is not assigned!");
+            _hideCoroutine = null;
+        }
+    }
 
     private void GenerateCurve()
     {

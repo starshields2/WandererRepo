@@ -75,13 +75,13 @@ public class TimeAndDate : MonoBehaviour
         if(currentMonth == 1)
         {
             monthYear = MonthofYear.Jan;
-            TurtleActive = false;
+          
 
         }
         else if(currentMonth == 2)
         {
             monthYear = MonthofYear.Feb;
-            TurtleActive = false;
+            
         }
         else if (currentMonth == 3)
         {
@@ -122,9 +122,9 @@ public class TimeAndDate : MonoBehaviour
         else if (currentMonth == 12)
         {
             monthYear = MonthofYear.Dec;
-            TurtleActive = false;
+           
         }
-        
+        //SUN POSITION
         if (timeTick >= 4 && timeTick < 6)
         {
             sunPosition = TimeofDay.Dawn;
@@ -149,6 +149,8 @@ public class TimeAndDate : MonoBehaviour
         {
             sunPosition = TimeofDay.Night;
         }
+
+        //SET POST PROCESSING FOR SUN
         switch (sunPosition)
         {
             case TimeofDay.None:
@@ -182,50 +184,100 @@ public class TimeAndDate : MonoBehaviour
                 PostProcessingObject[3].SetActive(true);
                 break;
         }
+        //SET FISH FOR MONTH OF YEAR.
         switch (monthYear)
         {
             case MonthofYear.None:
                 break;
+
             case MonthofYear.Jan:
-                YellowBassActive = false;
-            
+                YellowBassActive = true;
+                BGActive = true;
+                LNGarActive = true;
+                TurtleActive = false;
+                PaddleActive = true;
                 break;
             case MonthofYear.Feb:
                 YellowBassActive = true;
+                BGActive = true;
+                LNGarActive = true;
+                TurtleActive = false;
+                PaddleActive = true;
+
                 break;
             case MonthofYear.Mar:
                 YellowBassActive = true;
+                BGActive = true;
+                LNGarActive = true;
+                TurtleActive = true;
+                PaddleActive = true;
                 break;
             case MonthofYear.Apr:
                 YellowBassActive = true;
+                BGActive = true;
+                LNGarActive = true;
+                TurtleActive = true;
+                PaddleActive = true;
                 break;
             case MonthofYear.May:
-                YellowBassActive = false;
+                YellowBassActive = true;
+                BGActive = true;
+                LNGarActive = true;
+                TurtleActive = true;
+                PaddleActive = true;
                 break;
             case MonthofYear.Jun:
-                YellowBassActive = false;
+                YellowBassActive = true;
+                BGActive = true;
+                LNGarActive = true;
+                TurtleActive = true;
+                PaddleActive = true;
                 break;
             case MonthofYear.Jul:
-                YellowBassActive = false;
+                YellowBassActive = true;
+                BGActive = true;
+                LNGarActive = true;
+                TurtleActive = true;
+                PaddleActive = true;
                 break;
             case MonthofYear.Aug:
-                YellowBassActive = false;
+                YellowBassActive = true;
+                BGActive = true;
+                LNGarActive = true;
+                TurtleActive = true;
+                PaddleActive = true;
                 break;
             case MonthofYear.Sept:
-                YellowBassActive = false;
+                YellowBassActive = true;
+                BGActive = true;
+                LNGarActive = true;
+                TurtleActive = true;
+                PaddleActive = true;
                 break;
             case MonthofYear.Oct:
-                YellowBassActive = false;
+                YellowBassActive = true;
+                BGActive = true;
+                TurtleActive = true;
+                LNGarActive = true;
+                PaddleActive = true;
                 break;
             case MonthofYear.Nov:
-                YellowBassActive = false;
+                YellowBassActive = true;
+                BGActive = true;
+                LNGarActive = true;
+                TurtleActive = false;
+                PaddleActive = true;
                 break;
             case MonthofYear.Dec:
-                YellowBassActive = false;
+                YellowBassActive = true;
+                BGActive = true;
+                LNGarActive = true;
+                TurtleActive = false;
+                PaddleActive = true;
                 break;
 
         }
-        //Fish manager stuff. FIND A MORE EFFICIENT WAY
+        //SET APPEARANCE BASED ON TIME
         if(timeTick > 11 && timeTick < 17)
         {
             YellowBassActive = false;
@@ -265,10 +317,6 @@ public class TimeAndDate : MonoBehaviour
     }
     public void CheckMonth()
     {
-        if (ThisMonth > 2 && ThisMonth < 6)
-        {
-            YellowBassActive = false;
-        }
         if (ThisMonth > 2 && ThisMonth < 5)
         {
             PaddleActive = false;

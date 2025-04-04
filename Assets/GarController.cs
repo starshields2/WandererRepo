@@ -9,7 +9,7 @@ public class GarController : MonoBehaviour
     public HumanDetection humanDetection;
     public TimeAndDate timeManager;
     public MicrophoneManager audioManager;
-    public EnvironmentManager envManager;
+    public WeatherManager weaManager;
 
     public float tempCheck;
 
@@ -21,7 +21,7 @@ public class GarController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tempCheck = envManager.localTemp;
+        tempCheck = weaManager.localTemp;
         foreach (FollowBeziCurve fish in _garScript)
         {
             fish._hideTime = 300f;
@@ -45,7 +45,7 @@ public class GarController : MonoBehaviour
             ActivateFish();
         }
         //temp 
-        if (envManager.localTemp < 60f || envManager.localTemp > 90f)
+        if (weaManager.localTemp < 60f || weaManager.localTemp > 90f)
         {
             foreach (FollowBeziCurve fish in _garScript)
             {
@@ -57,6 +57,11 @@ public class GarController : MonoBehaviour
         else
         {
             tempOn = true;
+            foreach (FollowBeziCurve fish in _garScript)
+            {
+                tempOn = false;
+                fish.currentState = FollowBeziCurve.FishState.RegularSwim;
+            }
         }
         //face
         if (humanDetection.face == true)
@@ -66,6 +71,14 @@ public class GarController : MonoBehaviour
             {
                 Debug.Log("FACE HIDE");
                 fish.currentState = FollowBeziCurve.FishState.Hide;
+            }
+        }
+        else
+        {
+            foreach (FollowBeziCurve fish in _garScript)
+            {
+                tempOn = false;
+                fish.currentState = FollowBeziCurve.FishState.RegularSwim;
             }
         }
         //sound
@@ -83,6 +96,11 @@ public class GarController : MonoBehaviour
         else
         {
             soundOn = true;
+            foreach (FollowBeziCurve fish in _garScript)
+            {
+                tempOn = false;
+                fish.currentState = FollowBeziCurve.FishState.RegularSwim;
+            }
         }
     }
 

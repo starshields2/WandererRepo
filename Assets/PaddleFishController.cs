@@ -9,7 +9,7 @@ public class PaddleFishController : MonoBehaviour
     public HumanDetection humanDetection;
     public TimeAndDate timeManager;
     public MicrophoneManager audioManager;
-    public EnvironmentManager envManager;
+    public WeatherManager weaManager;
 
     public float tempCheck;
 
@@ -21,7 +21,7 @@ public class PaddleFishController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tempCheck = envManager.localTemp;
+        tempCheck = weaManager.localTemp;
         foreach (FollowBeziCurve fish in _paddleScript)
         {
             fish._hideTime = 600f;
@@ -45,7 +45,7 @@ public class PaddleFishController : MonoBehaviour
             ActivateFish();
         }
         //temp 
-        if (envManager.localTemp < 54f || envManager.localTemp > 75f)
+        if (weaManager.localTemp < 54f || weaManager.localTemp > 75f)
         {
             foreach (FollowBeziCurve fish in _paddleScript)
             {

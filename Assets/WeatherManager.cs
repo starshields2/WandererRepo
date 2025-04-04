@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class EnvironmentManager : MonoBehaviour
+public class WeatherManager : MonoBehaviour
 {
     string apiKey = "0ffb08cb572db172c4a77e34ca5d5c25"; // Replace with your OpenWeatherMap API key
     string url = "https://api.openweathermap.org/data/2.5/weather?q=Dallas&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
@@ -27,6 +27,7 @@ public class EnvironmentManager : MonoBehaviour
     public bool isRainy;
     public bool isDrought;
     public bool isSunny;
+    public GameObject sunFX;
 
     [Header("WaterLevel")]
     public float waterLevel;
@@ -131,7 +132,7 @@ public class EnvironmentManager : MonoBehaviour
             rainToString.text = rainReport;
             weatherDescriptionToString.text = weatherDescriptionReport;
         }
-
+        // check for rain.
         if (weatherDescriptionReport.Contains("rain") || (weatherDescriptionReport.Contains("thunderstorm")))
         {
             isRainy = true;
@@ -139,6 +140,15 @@ public class EnvironmentManager : MonoBehaviour
         else
         {
             isRainy = false;
+        }
+        //check for sun
+        if (weatherDescriptionReport.Contains("sun") || (weatherDescriptionReport.Contains("sunshine")))
+        {
+            isSunny = true;
+        }
+        else
+        {
+            isSunny = false;
         }
     }
     public void ChangeTempToSlide()
@@ -181,6 +191,15 @@ public class EnvironmentManager : MonoBehaviour
         else
         {
             rainFX.SetActive(false);
+        }
+
+        if (isSunny)
+        {
+            sunFX.SetActive(true);
+        }
+        else
+        {
+            sunFX.SetActive(false);
         }
     }
 

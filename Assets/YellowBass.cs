@@ -3,46 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARSubsystems;
 using TasiYokan.Curve;
-
+//DEPRICIATED!!! 
 public class YellowBass : MonoBehaviour
 {
-    [Header("Movement Controller")]
-    public FollowBeziCurve beziMover;
-    public TimeAndDate timemanager;
-    [Header("Weather Controller")]
-    public EnvironmentManager enviManager;
+    //[Header("Movement Controller")]
+    //public FollowBeziCurve beziMover;
+    //public TimeAndDate timemanager;
+    //[Header("Weather Controller")]
+    //public EnvironmentManager enviManager;
 
-    [Header("Social Interaction")]
-    public GameObject[] friendWith;
-    public GameObject[] avoiding;
-    public GameObject[] chasing;
+    //[Header("Social Interaction")]
+    //public GameObject[] friendWith;
+    //public GameObject[] avoiding;
+    //public GameObject[] chasing;
 
-    void Start()
-    {
+    //void Start()
+    //{
 
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (timemanager.YellowBassActive)
-        {
-            this.gameObject.SetActive(true);
-        }
-        else
-        {
-            this.gameObject.SetActive(false);
-        }
-        if (enviManager.localTemp < 62f || enviManager.localTemp > 82f)
-        {
-            beziMover.currentState = FollowBeziCurve.FishState.Hide;
-        }
-        else
-        {
-            // Temperature is within the range, you may want to handle this case.
-        }
+    //}
+    //// Update is called once per frame
+    //void Update()
+    //{
+    //    if (timemanager.YellowBassActive)
+    //    {
+    //        this.gameObject.SetActive(true);
+    //    }
+    //    else
+    //    {
+    //        this.gameObject.SetActive(false);
+    //    }
+    //    if (enviManager.localTemp < 62f || enviManager.localTemp > 82f)
+    //    {
+    //        beziMover.currentState = FollowBeziCurve.FishState.Hide;
+    //    }
+    //    else
+    //    {
+    //        // Temperature is within the range, you may want to handle this case.
+    //    }
 
 
-    }
+    //}
 }
 
 

@@ -9,7 +9,7 @@ public class BlueGillController : MonoBehaviour
     public HumanDetection humanDetection;
     public TimeAndDate timeManager;
     public MicrophoneManager audioManager;
-    public EnvironmentManager envManager;
+    public WeatherManager weaManager;
 
     public float tempCheck;
 
@@ -21,7 +21,7 @@ public class BlueGillController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tempCheck = envManager.localTemp;
+        tempCheck = weaManager.localTemp;
         //for each BlueGill, set hiding time to two minutes.
         foreach (FollowBeziCurve fish in bGillScript)
         {
@@ -46,7 +46,7 @@ public class BlueGillController : MonoBehaviour
             ActivateFish();
         }
         //temp 
-        if (envManager.localTemp < 65f || envManager.localTemp > 85f)
+        if (weaManager.localTemp < 65f || weaManager.localTemp > 85f)
             {
             foreach (FollowBeziCurve fish in bGillScript)
             {

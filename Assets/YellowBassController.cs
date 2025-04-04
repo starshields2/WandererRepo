@@ -9,7 +9,7 @@ public class YellowBassController : MonoBehaviour
     public HumanDetection humanDetection;
     public TimeAndDate timeManager;
     public MicrophoneManager audioManager;
-    public EnvironmentManager envManager;
+    public WeatherManager weaManager;
 
     public float tempCheck;
 
@@ -21,7 +21,7 @@ public class YellowBassController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tempCheck = envManager.localTemp;
+        tempCheck = weaManager.localTemp;
         foreach (FollowBeziCurve fish in yBassScript)
         {
             fish._hideTime = 120f;
@@ -45,7 +45,7 @@ public class YellowBassController : MonoBehaviour
             ActivateFish();
         }
         //temp 
-        if (envManager.localTemp < 62f || envManager.localTemp > 82f)
+        if (weaManager.localTemp < 62f || weaManager.localTemp > 82f)
         {
             foreach (FollowBeziCurve fish in yBassScript)
             {

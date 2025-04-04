@@ -9,7 +9,7 @@ public class TurtleController : MonoBehaviour
     public HumanDetection humanDetection;
     public TimeAndDate timeManager;
     public MicrophoneManager audioManager;
-    public EnvironmentManager envManager;
+    public WeatherManager weaManager;
 
     public float tempCheck;
 
@@ -21,7 +21,7 @@ public class TurtleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tempCheck = envManager.localTemp;
+        tempCheck = weaManager.localTemp;
         foreach (FollowBeziCurve fish in turtleScript)
         {
             fish._hideTime = 600f;
@@ -45,7 +45,7 @@ public class TurtleController : MonoBehaviour
             ActivateFish();
         }
         //temp 
-        if (envManager.localTemp < 75f || envManager.localTemp > 85f)
+        if (weaManager.localTemp < 75f || weaManager.localTemp > 85f)
         {
             foreach (FollowBeziCurve fish in turtleScript)
             {
@@ -82,6 +82,18 @@ public class TurtleController : MonoBehaviour
         else
         {
             soundOn = true;
+        }
+
+        //SUNNY
+
+        if(weaManager.isSunny = true)
+        {
+            foreach (FollowBeziCurve fish in turtleScript)
+            {
+                soundOn = false;
+                Debug.Log("SOUND HIDE");
+                fish.currentState = FollowBeziCurve.FishState.Sunbathe;
+            }
         }
     }
 
