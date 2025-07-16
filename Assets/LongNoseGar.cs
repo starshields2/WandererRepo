@@ -1,52 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//DEPRECIATED - SEE LNGAR CONTROLLER
+
 public class LongNoseGar : MonoBehaviour
 {
-//    [Header("Movement Controller")]
-//    public FollowBeziCurve beziMover;
-//    public TimeAndDate timemanager;
-//    [Header("Weather Controller")]
-//    public EnvironmentManager enviManager;
+    [Header("Movement Controller")]
+    public FollowBeziCurve beziMover;
 
-//    [Header("Social Interaction")]
-//    public GameObject[] friendWith;
-//    public GameObject[] avoiding;
-//    public GameObject[] chasing;
 
-//    private FollowBeziCurve chaseMover;
+   [Header("Social Interaction")]
+    public GameObject[] friendWith;
+    public GameObject[] avoiding;
+    public GameObject[] BlueGills;
 
-//    // Start is called before the first frame update
-//    void Start()
-//    {
+    private FollowBeziCurve chaseMover;
 
-//    }
+    // Start is called before the first frame update
 
-//    // Update is called once per frame
-//    void Update()
-//    {
-//        if (enviManager.localTemp < 60f || enviManager.localTemp > 90f)
-//        {
-//            beziMover.currentState = FollowBeziCurve.FishState.Hide;
-//        }
-//    }
 
-//    public void OnTriggerStay(Collider other)
-//    {
-//        Debug.Log("EnterCollider");
-//        if (ArrayContainsObject(chasing, other.gameObject))
-//        {
-//            Debug.Log("chasing " + other.gameObject.name);
+    public void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("EnterCollider");
+        if (other.tag == "BlueGill")
+        {
+            Debug.Log("Chasing bluegill");
+            beziMover.currentState = FollowBeziCurve.FishState.Follow;
+            FollowBeziCurve _otherFish = other.gameObject.GetComponent<FollowBeziCurve>();
+            _otherFish.beingChased = true;
 
-//            // Get the FollowBeziCurve component from the other fish
-//            chaseMover = other.GetComponent<FollowBeziCurve>();
-//            if (chaseMover != null)
-//            {
-//                StartChasing();
-//            }
-//        }
-//    }
+        }
+    }
 
 //    public void StartChasing()
 //    {

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PaddleFishController : MonoBehaviour
+public class CrawfishController : MonoBehaviour
 {
-    public GameObject[] allPaddles;
-    public FollowBeziCurve[] _paddleScript;
+    public GameObject[] allCrawfish;
+    public FollowBeziCurve[] _crawScript;
     public HumanDetection humanDetection;
     public TimeAndDate timeManager;
     public MicrophoneManager audioManager;
@@ -22,7 +22,7 @@ public class PaddleFishController : MonoBehaviour
     void Start()
     {
         tempCheck = weaManager.localTemp;
-        foreach (FollowBeziCurve fish in _paddleScript)
+        foreach (FollowBeziCurve fish in _crawScript)
         {
             fish._hideTime = 600f;
         }
@@ -32,7 +32,7 @@ public class PaddleFishController : MonoBehaviour
     void Update()
     {
         //month & time
-        if (timeManager.PaddleActive == false)
+        if (timeManager.crawActive == false)
         {
             Debug.Log("No Fish Active");
             DeactivateFish();
@@ -47,7 +47,7 @@ public class PaddleFishController : MonoBehaviour
         //temp 
         if (weaManager.localTemp < 54f || weaManager.localTemp > 75f)
         {
-            foreach (FollowBeziCurve fish in _paddleScript)
+            foreach (FollowBeziCurve fish in _crawScript)
             {
                 tempOn = false;
                 Debug.Log("TEMP HIDE");
@@ -62,10 +62,10 @@ public class PaddleFishController : MonoBehaviour
         if (humanDetection.face == true)
         {
             Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            foreach (FollowBeziCurve fish in _paddleScript)
+            foreach (FollowBeziCurve fish in _crawScript)
             {
                 Debug.Log("FACE HIDE");
-                fish.currentState = FollowBeziCurve.FishState.Hide;
+               // fish.currentState = FollowBeziCurve.FishState.Hide;
             }
         }
         //sound
@@ -73,11 +73,11 @@ public class PaddleFishController : MonoBehaviour
         if (audioManager.textDb >= 65)
         {
             Debug.Log("should hide - from bgcontrol");
-            foreach (FollowBeziCurve fish in _paddleScript)
+            foreach (FollowBeziCurve fish in _crawScript)
             {
                 soundOn = false;
                 Debug.Log("SOUND HIDE");
-                fish.currentState = FollowBeziCurve.FishState.Hide;
+                //fish.currentState = FollowBeziCurve.FishState.Hide;
             }
         }
         else
@@ -89,14 +89,15 @@ public class PaddleFishController : MonoBehaviour
     [ContextMenu("DeactivateFish")]
     public void DeactivateFish()
     {
-        foreach (GameObject fish in allPaddles)
+        foreach (GameObject fish in allCrawfish)
         {
             fish.SetActive(false);
         }
     }
     public void ActivateFish()
     {
-        foreach (GameObject fish in allPaddles) { 
+        foreach (GameObject fish in allCrawfish)
+        {
             fish.SetActive(true);
         }
     }

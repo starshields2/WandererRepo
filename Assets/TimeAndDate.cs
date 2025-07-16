@@ -22,6 +22,7 @@ public class TimeAndDate : MonoBehaviour
     public bool BGActive = true;
     public bool LNGarActive = true;
     public bool PaddleActive = true;
+    public bool crawActive = true;
 
 
     public enum MonthofYear
@@ -196,6 +197,7 @@ public class TimeAndDate : MonoBehaviour
                 LNGarActive = true;
                 TurtleActive = false;
                 PaddleActive = true;
+                crawActive = false;
                 break;
             case MonthofYear.Feb:
                 YellowBassActive = true;
@@ -203,6 +205,7 @@ public class TimeAndDate : MonoBehaviour
                 LNGarActive = true;
                 TurtleActive = false;
                 PaddleActive = true;
+                crawActive = false;
 
                 break;
             case MonthofYear.Mar:
@@ -211,6 +214,8 @@ public class TimeAndDate : MonoBehaviour
                 LNGarActive = true;
                 TurtleActive = true;
                 PaddleActive = true;
+                crawActive = true;
+
                 break;
             case MonthofYear.Apr:
                 YellowBassActive = true;
@@ -218,6 +223,7 @@ public class TimeAndDate : MonoBehaviour
                 LNGarActive = true;
                 TurtleActive = true;
                 PaddleActive = true;
+                crawActive = true;
                 break;
             case MonthofYear.May:
                 YellowBassActive = true;
@@ -225,6 +231,7 @@ public class TimeAndDate : MonoBehaviour
                 LNGarActive = true;
                 TurtleActive = true;
                 PaddleActive = true;
+                crawActive = true;
                 break;
             case MonthofYear.Jun:
                 YellowBassActive = true;
@@ -232,6 +239,7 @@ public class TimeAndDate : MonoBehaviour
                 LNGarActive = true;
                 TurtleActive = true;
                 PaddleActive = true;
+                crawActive = true;
                 break;
             case MonthofYear.Jul:
                 YellowBassActive = true;
@@ -239,6 +247,7 @@ public class TimeAndDate : MonoBehaviour
                 LNGarActive = true;
                 TurtleActive = true;
                 PaddleActive = true;
+                crawActive = true;
                 break;
             case MonthofYear.Aug:
                 YellowBassActive = true;
@@ -246,6 +255,7 @@ public class TimeAndDate : MonoBehaviour
                 LNGarActive = true;
                 TurtleActive = true;
                 PaddleActive = true;
+                crawActive = true;
                 break;
             case MonthofYear.Sept:
                 YellowBassActive = true;
@@ -253,6 +263,7 @@ public class TimeAndDate : MonoBehaviour
                 LNGarActive = true;
                 TurtleActive = true;
                 PaddleActive = true;
+                crawActive = true;
                 break;
             case MonthofYear.Oct:
                 YellowBassActive = true;
@@ -260,6 +271,7 @@ public class TimeAndDate : MonoBehaviour
                 TurtleActive = true;
                 LNGarActive = true;
                 PaddleActive = true;
+                crawActive = true;
                 break;
             case MonthofYear.Nov:
                 YellowBassActive = true;
@@ -267,6 +279,7 @@ public class TimeAndDate : MonoBehaviour
                 LNGarActive = true;
                 TurtleActive = false;
                 PaddleActive = true;
+                crawActive = false;
                 break;
             case MonthofYear.Dec:
                 YellowBassActive = true;
@@ -274,6 +287,7 @@ public class TimeAndDate : MonoBehaviour
                 LNGarActive = true;
                 TurtleActive = false;
                 PaddleActive = true;
+                crawActive = false;
                 break;
 
         }
@@ -311,8 +325,17 @@ public class TimeAndDate : MonoBehaviour
         {
             PaddleActive = false;
         }
+        if (timeTick > 18 || timeTick < 5)
+        {
+            crawActive = false;
+        }
+        else
+        {
+            crawActive = true;
+        }
 
-       ThisMonth = timeTick = System.DateTime.UtcNow.ToLocalTime().Month;
+
+            ThisMonth = timeTick = System.DateTime.UtcNow.ToLocalTime().Month;
         print(ThisMonth);
     }
     public void CheckMonth()
