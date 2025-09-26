@@ -5,6 +5,7 @@ using TMPro;
 
 public class TimeAndDate : MonoBehaviour
 {
+    public Transform _daylight;
     public TextMeshProUGUI timestring;
     public TextMeshProUGUI datestring;
     public string monthstring;
@@ -333,9 +334,17 @@ public class TimeAndDate : MonoBehaviour
         {
             crawActive = true;
         }
+        if (timeTick >= 18 || timeTick <= 11)
+        {
+            LNGarActive = true;
+        }
+        else
+        {
+            LNGarActive = false;
+        }
 
 
-            ThisMonth = timeTick = System.DateTime.UtcNow.ToLocalTime().Month;
+        ThisMonth = timeTick = System.DateTime.UtcNow.ToLocalTime().Month;
         print(ThisMonth);
     }
     public void CheckMonth()

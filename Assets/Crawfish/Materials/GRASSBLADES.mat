@@ -112,11 +112,11 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Scale: 0.07
+    - _Scale: 0.01
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 2.21
+    - _Speed: 1.84
     - _SrcBlend: 5
     - _Surface: 1
     - _WorkflowMode: 1
