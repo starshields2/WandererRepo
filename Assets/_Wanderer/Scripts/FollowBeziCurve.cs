@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Pathfinding;
 
 public class FollowBeziCurve : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class FollowBeziCurve : MonoBehaviour
     [SerializeField] private float _chaseSpeed = 4f;
     [SerializeField] public float _hideTime = 2f;
     [SerializeField] public float _sunbatheTime = 20f;
+    [SerializeField] public AIDestinationSetter _destinationSetter;
     public float fleeSpeed = 5f;
 
     public Transform hideSpot;
@@ -44,7 +46,72 @@ public class FollowBeziCurve : MonoBehaviour
             return;
         }
 
-        GenerateCurve();
+        //GenerateCurve();
+        _destinationSetter = this.gameObject.GetComponent<AIDestinationSetter>();
+    }
+
+    private void DefaultDestinationSetting()
+    {
+        StartCoroutine(DefaultSwimCoroutine());
+    }
+
+    private IEnumerator DefaultSwimCoroutine()
+    {
+        _isMovingAlongCurve = true;
+
+        // Start with a random target
+        int currentIndex = Random.Range(0, _targets.Length);
+        _destinationSetter.target = _targets[currentIndex];
+
+        while (_isMovingAlongCurve)
+        {
+            // When close enough to the current target...
+            if (Vector3.Distance(_objectToMove.position, _destinationSetter.target.position) < 0.2f)
+            {
+                int newIndex;
+
+                // Pick a new random index that is NOT the same as the current one
+                do
+                {
+                    newIndex = Random.Range(0, _targets.Length);
+                }
+                while (newIndex == currentIndex);
+
+                currentIndex = newIndex;
+                _destinationSetter.target = _targets[currentIndex];
+            }
+
+            yield return null; // keep coroutine alive frame-by-frame
+        }
+    }
+
+
+    private void BeginHiding()
+    {
+        StartCoroutine(HidingCoroutine());
+    }
+
+    private IEnumerator HidingCoroutine()
+    {
+        Debug.Log("Hide THIS FISH!");
+        _isMovingAlongCurve = false;
+        _destinationSetter.target = hideSpot;
+        yield return new WaitForSeconds(_hideTime);
+        currentState = FishState.RegularSwim;
+    }
+
+    private void BeginSunbathing()
+    {
+        StartCoroutine(SunbatheSequence());
+    }
+
+    private IEnumerator SunbatheSequence()
+    {
+        Debug.Log("Hide THIS FISH!");
+        _isMovingAlongCurve = false;
+        _destinationSetter.target = sunSpot;
+        yield return new WaitForSeconds(_sunbatheTime);
+        currentState = FishState.RegularSwim;
     }
 
     private void LateUpdate()
@@ -59,7 +126,8 @@ public class FollowBeziCurve : MonoBehaviour
                 if (!_isMovingAlongCurve)
                 {
                     Debug.Log("Starting RegularSwim movement.");
-                    StartMovingAlongCurve();
+                    //StartMovingAlongCurve();
+                    DefaultDestinationSetting();
                 }
                 break;
 
@@ -68,10 +136,11 @@ public class FollowBeziCurve : MonoBehaviour
                 break;
 
             case FishState.Hide:
-                if (!_isMovingAlongCurve && _hideCoroutine == null)
+                if (_isMovingAlongCurve && _hideCoroutine == null)
                 {
-                    StopMovingAlongCurve();
-                    _hideCoroutine = StartCoroutine(RunSequence());
+                    //StopMovingAlongCurve();
+                    _isMovingAlongCurve = false;
+                    BeginHiding();
                 }
                 break;
 
@@ -148,7 +217,7 @@ public class FollowBeziCurve : MonoBehaviour
         _hideCoroutine = null;
     }
 
-    public IEnumerator SunbatheSequence()
+    public IEnumerator SunbatheSequenceDepreciated()
     {
         StopMovingAlongCurve();
 

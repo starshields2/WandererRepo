@@ -2,68 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using System.Linq;
+using TMPro;
 
 public class HumanDetection : MonoBehaviour
 {
     public ARFaceManager arFace;
     public FollowBeziCurve[] yBass;
-
-    [SerializeField] // This will allow you to manually edit the field in the Inspector during runtime
-    public bool faceDetected;
     public bool face;
-
-    void Start()
-    {
-        // Initialize or any other setup needed
-    }
+    public bool faceDetected;
+    public TextMeshProUGUI facedetectinfo;
 
     private void OnEnable()
     {
         if (arFace != null)
-        {
             arFace.facesChanged += OnFacesChanged;
-        }
     }
 
     private void OnDisable()
     {
         if (arFace != null)
-        {
             arFace.facesChanged -= OnFacesChanged;
-        }
     }
 
     private void OnFacesChanged(ARFacesChangedEventArgs args)
     {
-        // If there are newly added faces, set faceDetected to true
+        // A face was added
         if (args.added.Count > 0)
         {
-            face = true; // A face has been detected
             Debug.Log("New face detected!");
+            faceDetected = true;
+            face = true;
+            facedetectinfo.text = "FACE";
+
             foreach (FollowBeziCurve fish in yBass)
             {
-
+                fish.currentState = FollowBeziCurve.FishState.Hide;
             }
         }
-        else
+
+        // All faces removed
+        if (args.removed.Count > 0 && arFace.trackables.count == 0)
         {
-            face = false; // No faces detected, set faceDetected to false
             Debug.Log("No faces detected.");
-        }
+            faceDetected = false;
+            face = false;
+            facedetectinfo.text = "NO FACE";
 
-        // If faces are removed, set faceDetected to false
-        if (args.removed.Count > 0)
-        {
-            //faceDetected = false;
-            Debug.Log("Face removed");
+            foreach (FollowBeziCurve fish in yBass)
+            {
+                fish.currentState = FollowBeziCurve.FishState.RegularSwim;
+            }
         }
-    }
-
-    // Method to manually set the value of faceDetected during runtime (useful for testing)
-    public void SetFaceDetected(bool value)
-    {
-        faceDetected = value;
-        Debug.Log("faceDetected manually set to: " + faceDetected);
     }
 }

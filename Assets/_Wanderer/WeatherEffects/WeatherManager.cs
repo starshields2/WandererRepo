@@ -178,7 +178,7 @@ public class WeatherManager : MonoBehaviour
                 // Check if the touch phase is began (finger touched the screen)
                 if (Input.GetTouch(i).phase == TouchPhase.Began)
                 {
-                    OnlineWeatherUpdate();
+                    //OnlineWeatherUpdate();
                     LocalTempSlide.value = localTemp;
                     debugui.SetActive(true);
 
