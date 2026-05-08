@@ -3,6 +3,9 @@
 # How to Use
 # Programming Guidelines
 # Customized Variations
-## Location
+## Weather Location
+In order to set the weather location, locate ```WeatherManager.cs``` 
+## Date/Time
+
 
 
