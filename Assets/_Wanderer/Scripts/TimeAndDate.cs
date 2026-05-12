@@ -1,15 +1,25 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Networking;
+using Newtonsoft.Json;
 
 public class TimeAndDate : MonoBehaviour
 {
+    private string url = "https://time.now/developer/api/timezone/Africa/Ghana/Accra";
+    public string MyCity;
+    public string MyArea;
+    public bool useSystemTime;
+
     public Transform _daylight;
     public TextMeshProUGUI timestring;
     public TextMeshProUGUI datestring;
     public string monthstring;
     public string monthstringText;
+    int testingHours;
+    DateTimeOffset dt;
 
     [Header("TimeObjects")]
     public GameObject[] PostProcessingObject;
@@ -24,7 +34,7 @@ public class TimeAndDate : MonoBehaviour
     public bool LNGarActive = true;
     public bool PaddleActive = true;
     public bool crawActive = true;
-
+    public int currentMonth;
 
     public enum MonthofYear
     {
@@ -55,25 +65,87 @@ public class TimeAndDate : MonoBehaviour
     public TimeofDay sunPosition = TimeofDay.None;
     public MonthofYear monthYear = MonthofYear.None;
 
+    public class DateTimeJSONData
+    {
+        public string abbreviation { get; set; }
+        public string datetime;
+        public int day_of_week { get; set; }
+        public int day_of_year { get; set; }
+        public bool dst { get; set; }
+        public int dst_offset { get; set; }
+        public string timezone { get; set; }
+        public int unixtime { get; set; }
+        public DateTime utc_datetime { get; set; }
+        public string utc_offset { get; set; }
+        public int week_number { get; set; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
 
     }
+    [ContextMenu("GetDataRequest")]
+    public void GetDataRequest()
+    {
+        StartCoroutine(GetRequest("https://time.now/developer/api/timezone" + "/" + MyArea + "/" + MyCity));
+    }
+    public IEnumerator GetRequest(string uri)
+    {
+        using(UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+      
+            yield return webRequest.SendWebRequest();
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                case UnityWebRequest.Result.DataProcessingError:
+                    Debug.LogError(string.Format("Something went wrong: {0}", webRequest.error));
+                    break;
+                case UnityWebRequest.Result.Success:
+                    DateTimeJSONData data = JsonConvert.DeserializeObject<DateTimeJSONData>(webRequest.downloadHandler.text);
+                    //Debug.Log("DATA REQUEST:" + data.datetime);
+                    dt = DateTimeOffset.Parse(data.datetime);
+                    Debug.Log(dt.ToString());
+                    testingHours = dt.TimeOfDay.Hours;
+                   // Debug.Log("THE HOUR IN " + MyCity + " IS: " + testingHours);
+                    //Debug.Log(webRequest.downloadHandler.text);
+
+                    break;
+            }
+        }
+        }
+
+    
 
     // Update is called once per frame
     void Update()
     {
+        if (useSystemTime)
+        {
+            var currentDateTime = System.DateTime.UtcNow.ToLocalTime();
+            timeTick = System.DateTime.UtcNow.ToLocalTime().Hour;
+            timestring.text = currentDateTime.ToString("HH:mm"); // Use the stored value for displaying time
+            datestring.text = currentDateTime.ToString("yyyy-MM-dd"); // Use the stored value for displaying date
+            currentMonth = System.DateTime.UtcNow.ToLocalTime().Month;
+            monthstring = currentMonth.ToString();
+        }
+        else if (!useSystemTime)
+        {
+            GetDataRequest();
+            timeTick = testingHours;
+           
+            timestring.text = dt.DateTime.ToString("HH:mm");
+            datestring.text = dt.DateTime.ToString("yyyy-MM-dd");
+        }
 
-        var currentDateTime = System.DateTime.UtcNow.ToLocalTime(); // Capture current time once per frame
-        int currentMonth = System.DateTime.UtcNow.ToLocalTime().Month;
-        monthstring = currentMonth.ToString();
-        timeTick = System.DateTime.UtcNow.ToLocalTime().Hour; // Use the stored value for timeTick
+         // Capture current time once per frame
+       
+        // Use the stored value for timeTick
 
-        timestring.text = currentDateTime.ToString("HH:mm"); // Use the stored value for displaying time
-        datestring.text = currentDateTime.ToString("yyyy-MM-dd"); // Use the stored value for displaying date
+        
 
-        Debug.Log("Current Local Time Hour: " + currentDateTime.Hour); // Use the same stored value for logging
+       // Debug.Log("Current Local Time Hour: " + currentDateTime.Hour); // Use the same stored value for logging
         if(currentMonth == 1)
         {
             monthYear = MonthofYear.Jan;
@@ -345,7 +417,7 @@ public class TimeAndDate : MonoBehaviour
 
 
         ThisMonth = timeTick = System.DateTime.UtcNow.ToLocalTime().Month;
-        print(ThisMonth);
+        //print(ThisMonth);
     }
     public void CheckMonth()
     {

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5efefd2479faf0e4d9ac75f48891c2d4, type: 3}
-  m_Name: YellowBass
+  m_Name: BlueGill
   m_EditorClassIdentifier: 
-  fishName: Yellow Bass
-  maxTemp: 82
-  minTemp: 62
+  fishName: BlueGill
+  maxTemp: 85
+  minTemp: 65
   maxDecibels: 65
-  hideFromFace: 1
-  fleeSpeed: 2
-  movementSpeed: 0.75
-  hideTime: 10
-  sunbatheTime: 10
+  hideFromFace: 0
+  fleeSpeed: 3
+  movementSpeed: 0.8672
+  hideTime: 5
+  sunbatheTime: 2
   doesSunbathe: 0
   swimHeights:
     low: 0

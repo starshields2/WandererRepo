@@ -7,7 +7,7 @@ using TMPro;
 public class HumanDetection : MonoBehaviour
 {
     public ARFaceManager arFace;
-    public FollowBeziCurve[] yBass;
+    public TemplateFishData[] fishList;
     public bool face;
     public bool faceDetected;
     public TextMeshProUGUI facedetectinfo;
@@ -34,9 +34,12 @@ public class HumanDetection : MonoBehaviour
             face = true;
             facedetectinfo.text = "FACE";
 
-            foreach (FollowBeziCurve fish in yBass)
+            foreach (TemplateFishData fish in fishList)
             {
-                fish.currentState = FollowBeziCurve.FishState.Hide;
+                if(fish.cameraShy == true)
+                {
+                    fish.currentState = TemplateFishData.FishState.Hide;
+                }    
             }
         }
 
@@ -48,9 +51,9 @@ public class HumanDetection : MonoBehaviour
             face = false;
             facedetectinfo.text = "NO FACE";
 
-            foreach (FollowBeziCurve fish in yBass)
+            foreach (TemplateFishData fish in fishList)
             {
-                fish.currentState = FollowBeziCurve.FishState.RegularSwim;
+               // fish.currentState = FollowBeziCurve.FishState.RegularSwim;
             }
         }
     }
