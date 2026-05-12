@@ -23,7 +23,19 @@ public class HumanDetection : MonoBehaviour
         if (arFace != null)
             arFace.facesChanged -= OnFacesChanged;
     }
-
+    private void Update()
+    {
+        if (face)
+        {
+            foreach (TemplateFishData fish in fishList)
+            {
+                if (fish.cameraShy == true)
+                {
+                    fish.currentState = TemplateFishData.FishState.Hide;
+                }
+            }
+        }
+    }
     private void OnFacesChanged(ARFacesChangedEventArgs args)
     {
         // A face was added
