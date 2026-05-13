@@ -171,6 +171,13 @@ public class TemplateFishData : MonoBehaviour
                 _targets.Add(spot);
             }
         }
+        if(baseFishSpecies.swimHeights.ground == true)
+        {
+            foreach(Transform spot in swimSpotsAdder.groundSpots)
+            {
+                _targets.Add(spot);
+            }
+        }
     }
 
 

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5efefd2479faf0e4d9ac75f48891c2d4, type: 3}
+  m_Name: LongNoseGar
+  m_EditorClassIdentifier: 
+  fishName: Longnose Gar
+  maxTemp: 90
+  minTemp: 60
+  maxDecibels: 0
+  hideFromFace: 0
+  fleeSpeed: 0
+  movementSpeed: 1
+  hideTime: 0
+  sunbatheTime: 0
+  doesSunbathe: 0
+  startingHour: 6
+  endingHour: 23
+  startingMonth: 0
+  endingMonth: 0
+  swimHeights:
+    low: 1
+    medium: 0
+    high: 1

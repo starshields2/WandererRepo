@@ -9,7 +9,11 @@ using System.Collections.Generic;
 public class WeatherManager : MonoBehaviour
 {
     string apiKey = "0ffb08cb572db172c4a77e34ca5d5c25"; // Replace with your OpenWeatherMap API key
-    string url = "https://api.openweathermap.org/data/2.5/weather?q=Dallas&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
+    //string url = "https://api.openweathermap.org/data/2.5/weather?q=Dallas&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
+
+    string url_first = "https://api.openweathermap.org/data/2.5/weather?q=";
+    string url_last = "&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial";
+    public string MyCity = "Dallas";
     string pollutionURL = "https://api.openweathermap.org/data/2.5/weather?q=Dallas&appid=0ffb08cb572db172c4a77e34ca5d5c25&units=imperial"; // Base URL
 
     public GameObject debugui;
@@ -98,7 +102,7 @@ public class WeatherManager : MonoBehaviour
     IEnumerator ShowandLoadWeatherData()
     {
         // Create URL with latitude, longitude, and API key
-        string requestUrl = url + "&lat=" + latitude + "&lon=" + longitude + "&units=imperial" + "&exclude=hourly,daily&appid=" + apiKey;
+        string requestUrl = url_first + MyCity + url_last + "&lat=" + latitude + "&lon=" + longitude + "&units=imperial" + "&exclude=hourly,daily&appid=" + apiKey;
 
         UnityWebRequest www = UnityWebRequest.Get(requestUrl);
         yield return www.SendWebRequest();

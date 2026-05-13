@@ -33,6 +33,7 @@ public class BaseFishSpecies : ScriptableObject
         public bool low;
         public bool medium;
         public bool high;
+        public bool ground;
     }
 
     public SwimHeights swimHeights;
