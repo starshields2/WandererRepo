@@ -110,18 +110,6 @@ If the environment becomes loud or disruptive, the species may:
 - swim away,
 - or disappear entirely. 
 
-
-
-
-
-
-
-# Credits
-Time and Date: </br>
-<a href = "https://time.now/developer"> World Time API </a> for consistent time and date fetching from anywhere in the world. 
-[OpenWeatherAPI](https://openweathermap.org/api) for fetching weather data around the world.
-
-
 # 5 - Technical Stack
 ## 5.1. Current Platform 
 - Android
@@ -134,17 +122,13 @@ Time and Date: </br>
 - System clock (optional)
 
 ## 5.3. APIs 
-- [OpenWeather API](https://openweathermap.org/api)
-- [World Time API](https://time.now/developer) 
+- [World Time API](https://time.now/developer) for consistent time and date fetching from anywhere in the world.
+- [OpenWeather API](https://openweathermap.org/api) for fetching weather data around the world. 
 
 ## 5.4. Audio 
 - Hydrophone recordings from the Trinity River 
 
-
-
-
-
-# 6 -Repository Structure 
+# 6. Repository Structure 
 
 This repo contains the base project, which includes 5 fish species and the basic framework under which they operate.  
 
