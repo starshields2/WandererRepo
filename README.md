@@ -147,7 +147,118 @@ Above are images depicting the project in action. Fish will respond to:
     surrounding audio 
 
     human presence (AR detected faces) 
-# Programming Guidelines
+# 7. Installation  
+
+7.1. Requirements 
+
+    Unity 2022+ 
+
+    Android SDK 
+
+    OpenWeather API Key 
+
+    [date/time API] 
+
+    Android tablet or emulator 
+
+7.2. Setup 
+
+    Clone Repository 
+
+    git clone https://github.com/YOUR_USERNAME/wanderer.git 
+
+    Open in Unity. Open the project using: 
+
+    Unity Hub 
+
+    Unity 2022+ 
+
+    Configure Weather API 
+
+    Create: 
+
+    [code example] 
+
+    Example: 
+
+    [code example] 
+
+    Configure [date/time] API 
+
+    Create:  
+
+    [code example]  
+
+    Example:  
+
+    [code example] 
+
+    Enable Permissions  
+
+    Allow: camera access, microphone access, internet access. 
+
+    Build for Android  
+
+    Use: File → Build Settings → Android → Build. Ensure that your Unity version has the Android Build Tools installed.
+# 8. Creating a Regional Variant
+
+One of Wanderer’s primary goals is enabling local ecological reinterpretation. Contributors are encouraged to create localized ecosystem variants. 
+
+8.1. Critical Notes 
+
+This section lists the elements that are opened to customization and  
+
+8.1.1. What Can Be Localized 
+
+    geological area
+    
+    weather conditions
+
+    relevant visual assets 
+
+    river/lake/ocean environment design 
+
+    local weather-related scenes 
+
+    aquatic species 
+
+    species' biological data 
+
+    environmental sounds 
+
+    other cultural framing 
+
+8.1.2. What Should Remain Consistent 
+
+The project’s philosophical foundations should remain intact: 
+
+    non-anthropocentric interaction 
+
+    ecological reciprocity 
+
+    un-interactive interaction 
+
+    privacy-first sensing 
+
+    anti-extractive data practices 
+
+    non-gamified experience 
+
+8.1.3. What Wanderer Is Not 
+
+Wanderer is not: 
+
+- a pet simulator, 
+
+- a gamified productivity app, 
+
+- a dopamine-maximizing engagement system, 
+
+- a surveillance platform, 
+
+- an extractive behavioral analytics tool. 
+# 8.2 Programming Guidelines
+## Packages and Versions:
 Unity Version 2021.3.29f1 </br>
 Unity AR Foundation </br>
 Newtonsoft.JSON </br>
