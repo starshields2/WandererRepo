@@ -249,3 +249,25 @@ All fish have a "targets" list in their respective manager. This is filled by th
 ## 8.5. Facial Recognition 
 Each fish scriptable object should have a "hide from face" boolean. When checked this will feed into the "Camera Shy" attribute of the ```TemplateFishData.cs``` file. 
 
+# 9. Privacy 
+Wanderer is designed around minimal data collection. The system: 
+- does not perform face recognition,
+- does not store biometric data,
+- does not retain ambient recordings,
+- does not track user analytics,
+- does not harvest behavioral profiles. </br>
+
+All sensing is processed locally and temporarily. 
+
+# 10. Accessibility & Sustainability 
+Wanderer intentionally uses: 
+- lightweight rendering,
+- low-poly models,
+- low-frequency polling,
+- minimal computational demand. </br>
+
+This supports: 
+- broader device compatibility, 
+- lower energy use,
+- reduced environmental impact. </br>
+
