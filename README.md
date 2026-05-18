@@ -1,111 +1,148 @@
-# Wanderer
+# 1. Wanderer
+Wanderer is a speculative posthuman-computer interaction (postHCI) project exploring multispecies coexistence through environmental simulation, ecological sensing, and un-interactive interaction (Lee & Obuobi, 2026). 
+- Lee, Y.-J. & Obuobi, S. (2026). Cohabiting with Semi-virtual Nature via Wanderer: Speculative Design in Taoist Post-HCI. World Futures Review, 0(0). https://doi.org/10.1177/19467567261438429 </br>
 
-# Introduction
+Wanderer © 2026 by Yueh-Jung Lee, Alrisha James Obuobi is licensed under CC BY-NC 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc/4.0/ 
+
+# 1.1. Overview 
+Wanderer is an open-source interactive application that simulates local aquatic ecosystems through real-time environmental data, ambient sensing, and species-specific behaviors. 
+
+Unlike conventional interactive applications designed primarily for human engagement, Wanderer explores a different relationship between humans, technology, and nonhuman life. The project draws from: 
+- posthumanism,
+- Taoist philosophy,
+- speculative design,
+- environmental psychology,
+- and critical human-computer interaction (HCI). </br>
+
+In Wanderer, virtual aquatic species do not exist to entertain, obey, or maximize user engagement. Their appearance and behavior depend on ecological and ambient conditions shared between human and nonhuman actors. The system responds to: 
+- weather,
+- temperature,
+- sound levels,
+- time of day,
+- movement,
+- and environmental rhythms. </br>
+
+Interaction occurs indirectly, environmentally, and reciprocally. 
+
+## 1.2. Core Philosophy 
+Wanderer challenges anthropocentric assumptions embedded in conventional interactive systems. Rather than optimizing for: 
+- engagement,
+- retention,
+- gamification,
+- or behavioral extraction, </br>
+
+Wanderer explores: 
+- coexistence,
+- restraint,
+- ecological awareness,
+- and multispecies reciprocity. </br>
+
+The project is heavily influenced by: 
+- Taoist concepts of Tao and wu wei,
+- feminist and critical posthuman theory,
+- speculative design,
+- and environmental humanities. </br>
+
+The interaction model of Wanderer is intentionally minimal. Human actors cannot directly command or control the species. Instead, species appear only when environmental and ambient conditions become mutually habitable. 
+
+# 2. Design Principles 
+1. Prioritize Environmental Conditions. Environmental factors are treated as primary interactors rather than passive backgrounds. The system responds to weather, time, sound, temperature, and ecological rhythms.
+2. Refuse Anthropocentric Interaction. The virtual species are not designed as pets, companions, collectibles, or game objects. They are treated as autonomous environmental actors with their own preferences, rhythms, tolerances, and social behaviors.
+3. Minimize Human Manipulation. Wanderer intentionally reduces direct control. There are no tapping mechanics, no feeding systems, no achievement loops, no progression systems, no monetized engagement structures. Interaction happens indirectly through environmental coexistence.
+4. Practice Wu Wei (Un-Interactive Interaction). The system draws from the Taoist concept of wu wei — action through non-forcing. Species emerge when humans remain calm, ambient conditions stabilize, and the environment becomes hospitable. The experience rewards attentiveness rather than control.
+5. Minimize Resource Use. Wanderer emphasizes lightweight and sustainable computing practices: low-poly models, minimal data retention, reduced processing load, low-frequency API polling, compatibility across devices. 
+
+# 3. Features 
+1. Real-time weather synchronization
+2. Dynamic time-of-day simulation
+3. Ambient sound responsiveness
+4. Human presence sensing
+5. Species-specific ecological behavior
+6. Local ecosystem simulation
+7. Underwater environmental audio
+8. Ecological/sensory/social/data flow systems
+9. Android tablet deployment
+10. Low-resource rendering pipeline 
+
+# 4. Interaction Model 
+Wanderer operates through four interconnected flows. 
+
+## 4.1. Flow System 
+### 4.1.1. Ecological Flow 
+Environmental conditions: 
+- weather,
+- season,
+- time of day,
+- temperature. 
+
+### 4.1.2. Sensory Flow 
+Species comfort conditions: 
+- sound levels,
+- temperature ranges,
+- movement sensitivity,
+- preferred habitats. 
+
+### 4.1.3. Social Flow 
+Relationships between species: 
+- attraction,
+- avoidance,
+- territorial behavior,
+- coexistence. 
+
+### 4.1.4. Data Flow 
+Real-time system processing: 
+- environmental APIs,
+- sensor data,
+- audio detection,
+- local computation. </br>
+
+No behavioral data is persistently stored. 
+
+## 4.2. Example Interaction 
+A Yellow Bass may only appear: 
+- during nighttime hours,
+- within a preferred temperature range,
+- under low-noise conditions,
+- and when human movement remains minimal. </br>
+
+If the environment becomes loud or disruptive, the species may: 
+- hide,
+- swim away,
+- or disappear entirely. 
+
+
+
+
+
+
+
 # Credits
 Time and Date: </br>
 <a href = "https://time.now/developer"> World Time API </a> for consistent time and date fetching from anywhere in the world. 
 [OpenWeatherAPI](https://openweathermap.org/api) for fetching weather data around the world.
-# 4 - Interaction Model 
 
-Wanderer operates through four interconnected flows. 
 
-4.1. Flow System 
-
-4.1.1. Ecological Flow 
-
-Environmental conditions: 
-
-    weather, 
-
-    season, 
-
-    time of day, 
-
-    temperature. 
-
-4.1.2. Sensory Flow 
-
-Species comfort conditions: 
-
-    sound levels, 
-
-    temperature ranges, 
-
-    movement sensitivity, 
-
-    preferred habitats. 
-
-4.1.3. Social Flow 
-
-Relationships between species: 
-
-    attraction, 
-
-    avoidance, 
-
-    territorial behavior, 
-
-    coexistence. 
-
-4.1.4. Data Flow 
-
-Real-time system processing: 
-
-    environmental APIs, 
-
-    sensor data, 
-
-    audio detection, 
-
-    local computation. 
-
-No behavioral data is persistently stored. 
-
-4.2. Example Interaction 
-
-A Yellow Bass may only appear: 
-
-    during nighttime hours, 
-
-    within a preferred temperature range, 
-
-    under low-noise conditions, 
-
-    and when human movement remains minimal. 
-
-If the environment becomes loud or disruptive, the species may: 
-
-    hide, 
-
-    swim away, 
-
-    or disappear entirely. 
 # 5 - Technical Stack
-5.1. Current Platform 
+## 5.1. Current Platform 
+- Android
+- Unity (Version: 2021.3.29f1) 
 
-    Android 
+## 5.2. Device Sensors 
+- Front camera
+- Microphone
+- Internet/weather APIs 
+- System clock (optional)
 
-    Unity (Version: 2021.3.29f1) 
+## 5.3. APIs 
+- [OpenWeather API](https://openweathermap.org/api)
+- [World Time API](https://time.now/developer) 
 
-5.2. Device Sensors 
+## 5.4. Audio 
+- Hydrophone recordings from the Trinity River 
 
-    Front camera 
 
-    Microphone 
 
-    System clock (optional) 
 
-    Internet/weather APIs 
-
-5.3. APIs 
-
-    OpenWeather API 
-
-    date/time API 
-
-5.4. Audio 
-
-    Hydrophone recordings from the Trinity River 
 
 # 6 -Repository Structure 
 
