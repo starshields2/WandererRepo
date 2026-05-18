@@ -110,7 +110,7 @@ If the environment becomes loud or disruptive, the species may:
 - swim away,
 - or disappear entirely. 
 
-# 5 - Technical Stack
+# 5. Technical Stack
 ## 5.1. Current Platform 
 - Android
 - Unity (Version: 2021.3.29f1) 
@@ -129,135 +129,68 @@ If the environment becomes loud or disruptive, the species may:
 - Hydrophone recordings from the Trinity River 
 
 # 6. Repository Structure 
-
 This repo contains the base project, which includes 5 fish species and the basic framework under which they operate.  
-
 <img width="1150" height="648" alt="image" src="https://github.com/user-attachments/assets/4ef8455f-2464-4a9b-9fce-ec7282a0d4ff" />
 
-
-
 Above are images depicting the project in action. Fish will respond to:  
+- month and year
+- time of day
+- weather conditions
+- surrounding audio
+- human presence (AR detected faces) 
 
-    month and year 
-
-    time of day 
-
-    weather conditions 
-
-    surrounding audio 
-
-    human presence (AR detected faces) 
 # 7. Installation  
+## 7.1. Requirements 
+- Unity 2022+
+- Android SDK
+- [World Time API](https://time.now/developer)
+- [OpenWeather API](https://openweathermap.org/api)
+- Android tablet or emulator 
 
-7.1. Requirements 
+## 7.2. Setup 
+- Clone Repository
+- git clone https://github.com/YOUR_USERNAME/wanderer.git </br>
 
-    Unity 2022+ 
+Open in Unity. Open the project using: 
+- Unity Hub
+- Unity 2022+
+- Configure Weather API </br>
 
-    Android SDK 
-
-    OpenWeather API Key 
-
-    [date/time API] 
-
-    Android tablet or emulator 
-
-7.2. Setup 
-
-    Clone Repository 
-
-    git clone https://github.com/YOUR_USERNAME/wanderer.git 
-
-    Open in Unity. Open the project using: 
-
-    Unity Hub 
-
-    Unity 2022+ 
-
-    Configure Weather API 
-
-    Create: 
-
-    [code example] 
-
-    Example: 
-
-    [code example] 
-
-    Configure [date/time] API 
-
-    Create:  
-
-    [code example]  
-
-    Example:  
-
-    [code example] 
-
-    Enable Permissions  
-
-    Allow: camera access, microphone access, internet access. 
-
-    Build for Android  
-
-    Use: File → Build Settings → Android → Build. Ensure that your Unity version has the Android Build Tools installed.
 # 8. Creating a Regional Variant
-
 One of Wanderer’s primary goals is enabling local ecological reinterpretation. Contributors are encouraged to create localized ecosystem variants. 
 
-8.1. Critical Notes 
+## 8.1. Critical Notes 
+This section lists the elements that are opened to customization and what should remain the same.
 
-This section lists the elements that are opened to customization and  
+### 8.1.1. What Can Be Localized 
+- geological area
+- weather conditions
+- relevant visual assets
+    - river/lake/ocean environment design
+    - local weather-related scenes
+    - aquatic species 
+- species' biological data
+- environmental sounds
+- other cultural framing 
 
-8.1.1. What Can Be Localized 
-
-    geological area
-    
-    weather conditions
-
-    relevant visual assets 
-
-    river/lake/ocean environment design 
-
-    local weather-related scenes 
-
-    aquatic species 
-
-    species' biological data 
-
-    environmental sounds 
-
-    other cultural framing 
-
-8.1.2. What Should Remain Consistent 
-
+### 8.1.2. What Should Remain Consistent 
 The project’s philosophical foundations should remain intact: 
+- non-anthropocentric interaction
+- ecological reciprocity
+- un-interactive interaction
+- privacy-first sensing
+- anti-extractive data practices
+- non-gamified experience 
 
-    non-anthropocentric interaction 
-
-    ecological reciprocity 
-
-    un-interactive interaction 
-
-    privacy-first sensing 
-
-    anti-extractive data practices 
-
-    non-gamified experience 
-
-8.1.3. What Wanderer Is Not 
-
+### 8.1.3. What Wanderer Is Not 
 Wanderer is not: 
-
 - a pet simulator, 
-
 - a gamified productivity app, 
-
 - a dopamine-maximizing engagement system, 
-
 - a surveillance platform, 
-
 - an extractive behavioral analytics tool. 
-# 8.2 Programming Guidelines
+
+## 8.2 Programming Guidelines
 ## Packages and Versions:
 Unity Version 2021.3.29f1 </br>
 Unity AR Foundation </br>
@@ -266,17 +199,16 @@ Newtonsoft.JSON </br>
 Every fish species is created using a [scriptable object](https://docs.unity3d.com/6000.4/Documentation/Manual/class-ScriptableObject.html). These objects can be loaded into ```TemplateFishData.cs``` after setting the properties in the Object window.
 <img width="556" height="459" alt="image" src="https://github.com/user-attachments/assets/afffbb18-f4bc-43a8-baa8-e0d442e37b57" /> </br>
 Fish preferences will be fed into Template Fish Data, which then can double check with weather, time, human detection and audio managers.
-# Customized Variations
+
+## 8.3. Customized Variations
 I.E. How to add your own fish, change location of Wanderer, etc.
 
-## Weather Location
+### 8.3.1. Weather Location
 In order to set the weather location, locate ```Weather Manager``` in the Hierarchy of your scene. Navigate to the WeatherManager.cs file in its Inspector panel. 
 You can modify the weather by changing the "MyCity" string. 
 
-
-
-## Date/Time
-### Using System Time vs Location Time
+### 8.3.2. Date/Time
+Using System Time vs Location Time
 Time is handled in ```TimeAndDate.cs```. </br>
 In the Sample Scene, there is a Time and Date script. In its inspector, you can type your City and Area into the appropriate strings in the inspector. </br>
 **Example:**</br>
@@ -285,9 +217,7 @@ If "Use System Time" is not checked, now Wanderer will utilize the time of the a
 <img width="311" height="25" alt="image" src="https://github.com/user-attachments/assets/355e0871-23f3-489b-a2fb-c56e67883447" /> </br>
 Find your region and city format here: <a href = "https://time.now/developer"> World Time API </a>
 
-
-## Adding Species
-### Creating a New Scriptable Object
+### 8.3.3. Adding Species
 You can create a new fish species by navigating to the project window and right clicking to open the menu. Then, go to ```Create>>>ScriptibleObjects>>>Fish``` and name the new Fish species appropriately.  You can look at the "Example Fish" Scriptable Object for a visual. </br>
 <img width="417" height="586" alt="image" src="https://github.com/user-attachments/assets/07e55d39-17f4-4607-91c7-08bf75e80842" /></br>
 You can input species data such as: </br>
@@ -306,15 +236,16 @@ Each new fish will need to be constructed with the following: </br>
 **TemplateFishData**: The script which contains the species data scriptable object created by the user.
 **Your Fish Model**: The new fish model created by the user. This will be placed within the "Visuals" Game Object of PF_BasicFish.
 
-### Importing Models and Textures
+### 8.3.4. Importing Models and Textures
 Create your fish  model using any 3D package of your choice along with its textures and materials. Compile in Unity and place the new model under the "Visuals" GameObject in the template Fish. Place the "Visuals" object in the Visual Container aspect of the template fish data component. 
 
-## Modifying Paths
+## 8.4. Modifying Paths
 Wanderer utilizes the A* Navigation Package. 
 To edit species paths, locate the SwimSpots GameObject in the project Hierarchy. 
 Swim spots are categorized between High, Medium and Low spots. You can duplicate these spots to create more points fish can travel between. All spots have their tag set to `Navigation`.
 Then you will need to locate the ```A_Star``` GameObject. In the object's Inspector, locate the ```Pathfinder``` and click **Scan** to add these points to the graph. 
 All fish have a "targets" list in their respective manager. This is filled by the "Swim Heights" conditions in each fish's Scriptable Objects container.
-## Facial Recognition 
+
+## 8.5. Facial Recognition 
 Each fish scriptable object should have a "hide from face" boolean. When checked this will feed into the "Camera Shy" attribute of the ```TemplateFishData.cs``` file. 
 
